@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {Service} from "../../Services/service";
 
 @Component({
   selector: 'app-category',
@@ -7,24 +8,18 @@ import {Router} from "@angular/router";
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-  category = [
-    {
-      id: 1,
-      name: 'Çorbalar',
-      description: 'Sulu yemekler',
-      imageUrl: 'corba.png'
-    }
-  ]
+  category: any;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private service: Service) {
   }
 
   ngOnInit(): void {
-    /* this.service.getExercises().subscribe((data)=>{
-       this.exercise = data;
+     this.service.getCategories().subscribe((data)=>{
+       this.category = data;
+       console.log(this.category)
      });
 
-     */
 
   }
 
