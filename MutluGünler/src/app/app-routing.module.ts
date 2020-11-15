@@ -7,6 +7,8 @@ import {ProductComponent} from "./Pages/product/product.component";
 import {ProductDetailComponent} from "./Pages/product-detail/product-detail.component";
 import {CategoryDetailComponent} from "./Pages/category-detail/category-detail.component";
 import {BasicElementsComponent} from "./forms/basic-elements/basic-elements.component";
+import {MenuComponent} from "./Pages/menu/menu.component";
+import {MenuDetailComponent} from "./Pages/menu-detail/menu-detail.component";
 
 
 
@@ -19,6 +21,8 @@ const routes: Routes = [
   {path: 'category-detail', component: CategoryDetailComponent},
   {path: 'product', component: ProductComponent},
   {path: 'product-detail', component: ProductDetailComponent},
+  {path: 'menu', component: MenuComponent},
+  {path: 'menu-detail', component: MenuDetailComponent},
   {path: 'forms', component:BasicElementsComponent}
 
 

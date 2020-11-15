@@ -23,6 +23,8 @@ import { CategoryComponent } from './Pages/category/category.component';
 import { ProductComponent } from './Pages/product/product.component';
 import { ProductDetailComponent } from './Pages/product-detail/product-detail.component';
 import {CategoryDetailComponent} from './Pages/category-detail/category-detail.component';
+import { MenuComponent } from './Pages/menu/menu.component';
+import { MenuDetailComponent } from './Pages/menu-detail/menu-detail.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import {CategoryDetailComponent} from './Pages/category-detail/category-detail.c
     ProductComponent,
     ProductDetailComponent,
     CategoryDetailComponent,
+    MenuComponent,
+    MenuDetailComponent,
   ],
   imports: [
     BrowserModule,
