@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -15,9 +16,9 @@ export class AppComponent implements OnInit{
   isLoading: boolean;
 
   constructor(private router: Router) {
-    
+
     // Removing Sidebar, Navbar, Footer for Documentation, Error and Auth pages
-    router.events.forEach((event) => { 
+    router.events.forEach((event) => {
       if(event instanceof NavigationStart) {
         if((event['url'] == '/user-pages/login') || (event['url'] == '/user-pages/register') || (event['url'] == '/error-pages/404') || (event['url'] == '/error-pages/500') ) {
           this.showSidebar = false;
@@ -43,7 +44,7 @@ export class AppComponent implements OnInit{
     });
 
     // Spinner for lazyload modules
-    router.events.forEach((event) => { 
+    router.events.forEach((event) => {
       if (event instanceof RouteConfigLoadStart) {
           this.isLoading = true;
       } else if (event instanceof RouteConfigLoadEnd) {
@@ -62,5 +63,12 @@ export class AppComponent implements OnInit{
       }
       window.scrollTo(0, 0);
     });
+
+        if (environment.production) {
+      if (location.protocol === 'http:') {
+        window.location.href = location.href.replace('http', 'https');
+      }
+    }
+
   }
 }

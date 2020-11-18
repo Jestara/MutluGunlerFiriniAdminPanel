@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {MCategory} from "../Models/MCategory";
+import {MMenu} from "../Models/MMenu";
 
 
 @Injectable({
@@ -12,12 +14,12 @@ export class Service {
 
   // GET
   getMenus(){
-    return this.http.get(this.BASE_URL + 'menus/getall', {
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
-      }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980'),
+      'Accept': 'application/json'
     });
+    return this.http.get<MMenu>(this.BASE_URL + 'menus/getall', {headers});
   }
 
   getCategories(){
@@ -45,6 +47,22 @@ export class Service {
         Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
       }
     });
+  }
+
+  //Post
+  postCategory(category: MCategory){
+    const obj = {
+      name: category.name,
+      description: category.description,
+      imageUrl: category.imageUrl,
+      menuId: 1
+    }
+    console.log(obj);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980'),
+    });
+    return this.http.post(this.BASE_URL + 'categories/add' + obj,{headers}).toPromise();
   }
 
 

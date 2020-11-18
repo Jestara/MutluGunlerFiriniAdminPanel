@@ -10,6 +10,7 @@ import {Service} from "../../Services/service";
 export class CategoryComponent implements OnInit {
   category: any;
 
+
   constructor(private router: Router,
               private service: Service) {
   }
