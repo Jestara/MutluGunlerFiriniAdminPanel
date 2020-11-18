@@ -32,7 +32,7 @@
         </div>
         <button *ngIf="button === false" type="submit" class="btn btn-gradient-primary mr-2" (click)="onSubmit()">Kaydet</button>
         <button *ngIf="button === true" type="submit" class="btn btn-gradient-primary mr-2" (click)="onSave()">Güncelle</button>
-        <button class="btn btn-light">İptal</button>
+        <button class="btn btn-light" routerLink="/category">İptal</button>
       </form>
     </div>
   </div>

@@ -55,7 +55,7 @@ export class Service {
       name: category.name,
       description: category.description,
       imageUrl: category.imageUrl,
-      menuId: 1
+      menuId: category.menuId
     }
     console.log(obj);
     const headers = new HttpHeaders({

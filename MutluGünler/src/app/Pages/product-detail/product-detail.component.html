@@ -7,17 +7,20 @@
       </p>
       <form class="forms-sample">
         <div class="form-group">
-          <label for="exampleInputName1">Ürün Adı</label>
-          <input type="text" class="form-control" id="exampleInputName1" placeholder="Ürün Adı">
+          <input type="hidden" class="form-control" name="id" [(ngModel)]="proModel.id">
         </div>
         <div class="form-group">
-          <label for="exampleInputPrice">Fiyat</label>
-          <input type="text" class="form-control" id="exampleInputPrice" placeholder="Fiyat">
+          <label >Ürün Adı</label>
+          <input type="text" class="form-control" name="name" placeholder="Ürün Adı" [(ngModel)]="proModel.name">
         </div>
         <div class="form-group">
-          <label for="exampleSelectCategory">Ürün Kategorisi</label>
-          <select class="form-control" id="exampleSelectCategory">
-            <option>İçecekler</option>
+          <label>Fiyat</label>
+          <input type="text" class="form-control" name="price" placeholder="Fiyat" [(ngModel)]="proModel.price">
+        </div>
+        <div class="form-group">
+          <label>Ürün Kategorisi</label>
+          <select class="form-control" name="categoryId" [(ngModel)]="proModel.categoryId">
+            <option *ngFor="let c of categories" value="{{c.id}}">{{c.name}}</option>
           </select>
         </div>
         <div class="form-group">
@@ -31,11 +34,12 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="exampleTextarea1">Ürün Açıklaması</label>
-          <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+          <label >Ürün Açıklaması</label>
+          <textarea class="form-control" name="description" rows="4" [(ngModel)]="proModel.description"></textarea>
         </div>
-        <button type="submit" class="btn btn-gradient-primary mr-2">Kaydet</button>
-        <button class="btn btn-light">İptal</button>
+        <button *ngIf="button === false" type="submit" class="btn btn-gradient-primary mr-2" (click)="onSubmit()">Kaydet</button>
+        <button *ngIf="button === true" type="submit" class="btn btn-gradient-primary mr-2" (click)="onSave()">Güncelle</button>
+        <button class="btn btn-light" routerLink="/product">İptal</button>
       </form>
     </div>
   </div>

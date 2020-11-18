@@ -14,14 +14,14 @@ export class MenuComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.service.getProducts().subscribe((data)=>{
+    this.service.getMenus().subscribe((data)=>{
       this.menu = data;
       console.log(this.menu)
     });
   }
 
-  added(c) {
-    this.router.navigate(['menu-detail',c]);
+  added(m) {
+    this.router.navigate(['menu-detail',m]);
   }
 
 }

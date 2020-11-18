@@ -48,6 +48,7 @@ export class CategoryDetailComponent implements OnInit {
     console.log(this.catModel);
     this.service.postCategory(this.catModel);
   }
+
   onSave(){
     console.log(this.catModel);
   }
