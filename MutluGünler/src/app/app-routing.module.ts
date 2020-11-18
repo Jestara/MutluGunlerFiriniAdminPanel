@@ -9,11 +9,13 @@ import {CategoryDetailComponent} from "./Pages/category-detail/category-detail.c
 import {BasicElementsComponent} from "./forms/basic-elements/basic-elements.component";
 import {MenuComponent} from "./Pages/menu/menu.component";
 import {MenuDetailComponent} from "./Pages/menu-detail/menu-detail.component";
+import {LoginComponent} from "./user-pages/login/login.component";
 
 
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  { path: 'user-pages', loadChildren: () => import('./user-pages/user-pages.module').then(m => m.UserPagesModule) },
   {path: 'dashboard', component: DashboardComponent},
   {path: 'user', component: UserComponent},
   {path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule)},
