@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MCategory} from "../Models/MCategory";
 import {MMenu} from "../Models/MMenu";
+import {Observable} from "rxjs";
 
 
 @Injectable({
@@ -50,19 +51,18 @@ export class Service {
   }
 
   //Post
-  postCategory(category: MCategory){
+  postCategory(category: MCategory) {
     const obj = {
       name: category.name,
       description: category.description,
       imageUrl: category.imageUrl,
-      menuId: category.menuId
+      menuId: parseInt(String(category.menuId))
     }
-    console.log(obj);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980'),
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'categories/add' + obj,{headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'categories/add', obj, {headers}).toPromise();
   }
 
 
