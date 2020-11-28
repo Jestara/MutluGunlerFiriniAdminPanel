@@ -1,15 +1,15 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
-import {UserComponent} from "./Pages/user/user.component";
-import {CategoryComponent} from "./Pages/category/category.component";
-import {ProductComponent} from "./Pages/product/product.component";
-import {ProductDetailComponent} from "./Pages/product-detail/product-detail.component";
-import {CategoryDetailComponent} from "./Pages/category-detail/category-detail.component";
-import {BasicElementsComponent} from "./forms/basic-elements/basic-elements.component";
-import {MenuComponent} from "./Pages/menu/menu.component";
-import {MenuDetailComponent} from "./Pages/menu-detail/menu-detail.component";
-import {LoginComponent} from "./user-pages/login/login.component";
+import {UserComponent} from './Pages/user/user.component';
+import {CategoryComponent} from './Pages/category/category.component';
+import {ProductComponent} from './Pages/product/product.component';
+import {ProductDetailComponent} from './Pages/product-detail/product-detail.component';
+import {CategoryDetailComponent} from './Pages/category-detail/category-detail.component';
+import {BasicElementsComponent} from './forms/basic-elements/basic-elements.component';
+import {MenuComponent} from './Pages/menu/menu.component';
+import {MenuDetailComponent} from './Pages/menu-detail/menu-detail.component';
+import {LoginComponent} from './user-pages/login/login.component';
 
 
 

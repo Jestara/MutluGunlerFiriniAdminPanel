@@ -24,4 +24,8 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['menu-detail',m]);
   }
 
+  delete(m){
+    this.service.deleteMenu(m);
+  }
+
 }

@@ -45,8 +45,7 @@ export class ProductDetailComponent implements OnInit {
     })
   }
   onSubmit(){
-    console.log(this.proModel);
-    // this.service.postCategory(this.proModel);
+    this.service.postProduct(this.proModel);
   }
 
   onSave(){

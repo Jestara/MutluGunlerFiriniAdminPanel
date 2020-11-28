@@ -41,13 +41,13 @@
               </td>
               <td>
                 <button class="btn btn-info" (click)="added(m)"><i class="mdi mdi-pencil" ></i> Düzenle</button>
-                <button class="btn btn-danger"><i class="mdi mdi-delete"></i> Sil</button>
+                <button class="btn btn-danger" (click)="delete(m)"><i class="mdi mdi-delete"></i> Sil</button>
               </td>
             </tr>
             </tbody>
           </table>
         </div>
-        <button class="btn btn-primary mt-2"> Ekle</button>
+        <button class="btn btn-primary mt-2" routerLink="/menu-detail">Ekle</button>
       </div>
     </div>
   </div>

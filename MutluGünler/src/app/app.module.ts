@@ -25,6 +25,8 @@ import { ProductDetailComponent } from './Pages/product-detail/product-detail.co
 import {CategoryDetailComponent} from './Pages/category-detail/category-detail.component';
 import { MenuComponent } from './Pages/menu/menu.component';
 import { MenuDetailComponent } from './Pages/menu-detail/menu-detail.component';
+import {MaterialModule} from './Module/material/material.module';
+
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { MenuDetailComponent } from './Pages/menu-detail/menu-detail.component';
     FormsModule,
     ReactiveFormsModule,
     ChartsModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
   ],
   providers: [ThemeService, Service],
   bootstrap: [AppComponent]

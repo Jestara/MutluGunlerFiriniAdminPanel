@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MCategory} from "../Models/MCategory";
 import {MMenu} from "../Models/MMenu";
 import {Observable} from "rxjs";
+import {MProduct} from "../Models/MProduct";
 
 
 @Injectable({
@@ -51,6 +52,19 @@ export class Service {
   }
 
   //Post
+  postMenu(menu: MMenu) {
+    const obj = {
+      name: menu.name,
+      description: menu.description,
+      imageUrl: menu.imageUrl,
+    }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+    });
+    return this.http.post(this.BASE_URL + 'menus/add', obj, {headers}).toPromise();
+  }
+
   postCategory(category: MCategory) {
     const obj = {
       name: category.name,
@@ -64,6 +78,72 @@ export class Service {
     });
     return this.http.post(this.BASE_URL + 'categories/add', obj, {headers}).toPromise();
   }
+
+  postProduct(product: MProduct) {
+    const obj = {
+      name: product.name,
+      description: product.description,
+      imageUrl: product.imageUrl,
+      price: parseFloat(String(product.price)),
+      categoryId: parseInt(String(product.categoryId))
+    }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+    });
+    return this.http.post(this.BASE_URL + 'products/add', obj, {headers}).toPromise();
+  }
+
+  postUser(user: any){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+    });
+    return this.http.post(this.BASE_URL + 'users/login', user, {headers}).toPromise();
+  }
+
+  //update
+  updateMenu(menu: MMenu) {
+    const obj = {
+      id: parseInt(String(menu.id)),
+      name: menu.name,
+      description: menu.description,
+      imageUrl: menu.imageUrl,
+    }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+    });
+    return this.http.post(this.BASE_URL + 'menus/update', obj, {headers}).toPromise();
+  }
+
+
+  //delete
+  deleteMenu(menu: MMenu) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+    });
+    return this.http.post(this.BASE_URL + 'menus/delete', menu, {headers}).toPromise();
+  }
+
+  deleteCategory(category: MCategory) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+    });
+    return this.http.post(this.BASE_URL + 'categories/delete', category, {headers}).toPromise();
+  }
+
+  deleteProduct(product: MProduct) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+    });
+    return this.http.post(this.BASE_URL + 'products/delete', product, {headers}).toPromise();
+  }
+
+
 
 
 

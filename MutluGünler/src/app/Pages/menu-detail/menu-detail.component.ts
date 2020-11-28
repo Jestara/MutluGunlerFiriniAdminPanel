@@ -38,11 +38,11 @@ export class MenuDetailComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.menuModel);
+    this.service.postMenu(this.menuModel);
   }
 
   onSave(){
-    console.log(this.menuModel);
+    this.service.updateMenu(this.menuModel);
   }
 
 }

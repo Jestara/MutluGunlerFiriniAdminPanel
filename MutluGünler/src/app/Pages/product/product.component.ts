@@ -17,12 +17,15 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.service.getProducts().subscribe((data)=>{
       this.product = data;
-      console.log(this.product)
     });
   }
 
   added(p) {
     this.router.navigate(['product-detail', p]);
+  }
+
+  delete(p){
+    this.service.deleteProduct(p);
   }
 
 }

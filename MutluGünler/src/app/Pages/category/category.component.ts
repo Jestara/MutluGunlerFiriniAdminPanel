@@ -28,4 +28,8 @@ export class CategoryComponent implements OnInit {
     this.router.navigate(['category-detail',c]);
   }
 
+  delete(c){
+    this.service.deleteCategory(c);
+  }
+
 }
