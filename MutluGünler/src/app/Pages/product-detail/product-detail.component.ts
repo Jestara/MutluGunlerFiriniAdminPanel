@@ -49,7 +49,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onSave(){
-    console.log(this.proModel);
+    this.service.updateProduct(this.proModel);
   }
 
 }

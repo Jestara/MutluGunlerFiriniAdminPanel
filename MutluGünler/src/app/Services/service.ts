@@ -117,6 +117,37 @@ export class Service {
     return this.http.post(this.BASE_URL + 'menus/update', obj, {headers}).toPromise();
   }
 
+  updateCategory(category: MCategory) {
+    const obj = {
+      id: parseInt(String(category.id)),
+      name: category.name,
+      description: category.description,
+      imageUrl: category.imageUrl,
+      menuId: parseInt(String(category.menuId))
+    }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+    });
+    return this.http.post(this.BASE_URL + 'categories/update', obj, {headers}).toPromise();
+  }
+
+  updateProduct(product: MProduct) {
+    const obj = {
+      id: parseInt(String(product.id)),
+      name: product.name,
+      description: product.description,
+      imageUrl: product.imageUrl,
+      price: parseFloat(String(product.price)),
+      categoryId: parseInt(String(product.categoryId))
+    }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+    });
+    return this.http.post(this.BASE_URL + 'products/update', obj, {headers}).toPromise();
+  }
+
 
   //delete
   deleteMenu(menu: MMenu) {

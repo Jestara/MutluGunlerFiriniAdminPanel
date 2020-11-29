@@ -49,7 +49,7 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   onSave(){
-    console.log(this.catModel);
+    this.service.updateCategory(this.catModel);
   }
 
 }
