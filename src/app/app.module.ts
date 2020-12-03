@@ -26,7 +26,7 @@ import {CategoryDetailComponent} from './Pages/category-detail/category-detail.c
 import { MenuComponent } from './Pages/menu/menu.component';
 import { MenuDetailComponent } from './Pages/menu-detail/menu-detail.component';
 import {MaterialModule} from './Module/material/material.module';
-import {AuthService} from "./Services/auth.service";
+
 
 
 @NgModule({
@@ -59,7 +59,7 @@ import {AuthService} from "./Services/auth.service";
     HttpClientModule,
     MaterialModule
   ],
-  providers: [ThemeService, Service, AuthService],
+  providers: [ThemeService, Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

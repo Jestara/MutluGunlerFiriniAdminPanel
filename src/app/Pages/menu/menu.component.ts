@@ -20,7 +20,6 @@ export class MenuComponent implements OnInit {
     this.user = localStorage.getItem('user');
     if (this.user === null) {
       this.router.navigate(['user-pages/login']);
-      console.log(this.user)
     } else {
       this.isLoading = true;
       this.service.getMenus().subscribe((data) => {

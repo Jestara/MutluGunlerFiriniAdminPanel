@@ -10,23 +10,30 @@ import {Service} from "../../Services/service";
 export class ProductComponent implements OnInit {
   product: any;
   isLoading = false;
+  user: any;
+
   constructor(private router: Router,
               private service: Service) {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.service.getProducts().subscribe((data)=>{
-      this.product = data;
-      this.isLoading = false;
-    });
+    this.user = localStorage.getItem('user');
+    if (this.user === null) {
+      this.router.navigate(['user-pages/login']);
+    } else {
+      this.isLoading = true;
+      this.service.getProducts().subscribe((data) => {
+        this.product = data;
+        this.isLoading = false;
+      });
+    }
   }
 
   added(p) {
     this.router.navigate(['product-detail', p]);
   }
 
-  delete(p){
+  delete(p) {
     this.service.deleteProduct(p);
   }
 
