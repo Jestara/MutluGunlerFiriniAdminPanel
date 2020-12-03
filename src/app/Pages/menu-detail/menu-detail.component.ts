@@ -9,11 +9,13 @@ import {Service} from "../../Services/service";
 })
 export class MenuDetailComponent implements OnInit {
   menu: any;
+  selectedFile: File;
   menuModel = {
     id: null,
     name: null,
     description: null,
     imageUrl: null,
+    file: null
   };
   button: boolean;
 
@@ -28,7 +30,8 @@ export class MenuDetailComponent implements OnInit {
           id: this.menu.id,
           name: this.menu.name,
           description: this.menu.description,
-          imageUrl: this.menu.imageUrl
+          imageUrl: this.menu.imageUrl,
+          file: this.selectedFile
         };
         this.button = true;
       }else{
@@ -43,6 +46,11 @@ export class MenuDetailComponent implements OnInit {
 
   onSave(){
     this.service.updateMenu(this.menuModel);
+  }
+
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile);
   }
 
 }

@@ -3,4 +3,5 @@ export interface MMenu {
   name: string;
   description: string;
   imageUrl: string;
+  file: File
 }

@@ -11,6 +11,7 @@ import {MProduct} from "../Models/MProduct";
 })
 export class Service {
   BASE_URL = 'https://service.mutlugunlerfirini.com.tr/api/';
+  // BASE_URL = 'https://localhost:44352/api/';
 
   constructor(private http: HttpClient) { }
 
@@ -57,9 +58,10 @@ export class Service {
       name: menu.name,
       description: menu.description,
       imageUrl: menu.imageUrl,
+      file: menu.file
     }
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
       'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
     return this.http.post(this.BASE_URL + 'menus/add', obj, {headers}).toPromise();

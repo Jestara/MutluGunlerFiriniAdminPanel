@@ -64,7 +64,7 @@ export class AppComponent implements OnInit{
       window.scrollTo(0, 0);
     });
 
-        if (environment.production) {
+    if (environment.production) {
       if (location.protocol === 'http:') {
         window.location.href = location.href.replace('http', 'https');
       }

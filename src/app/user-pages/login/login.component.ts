@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Service} from "../../Services/service";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {AuthService} from "../../Services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private service: Service,
               private route: Router,
-              private _snackBar: MatSnackBar) { }
+              private _snackBar: MatSnackBar,
+              private auth: AuthService) { }
 
   ngOnInit() {
   }
@@ -28,12 +30,14 @@ export class LoginComponent implements OnInit {
     }
   this.service.postUser(obj).then((data) => {
     this.response = data;
+    const user = this.response.firstName + ' ' +  this.response.lastName;
+    localStorage.setItem('login', user);
     if (data === null){
       const message = 'Yanlış kullanıcı adı veya şifre girdiniz.';
       this.openSnackBar(message);
     }
     else{
-      console.log('giriş yapıldı');
+      localStorage.setItem('user', JSON.stringify(obj));
       this.route.navigate(['/']);
     }
   });

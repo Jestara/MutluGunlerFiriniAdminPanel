@@ -11,15 +11,19 @@ import {Router} from "@angular/router";
 export class NavbarComponent implements OnInit {
   public iconOnlyToggled = false;
   public sidebarToggled = false;
+  user: any;
 
   constructor(config: NgbDropdownConfig, private router: Router) {
     config.placement = 'bottom-right';
   }
 
   ngOnInit() {
+    this.user = localStorage.getItem('login');
   }
 
   routeLogin(){
+    localStorage.removeItem('user');
+    localStorage.removeItem('login');
     this.router.navigateByUrl('user-pages/login');
   }
 

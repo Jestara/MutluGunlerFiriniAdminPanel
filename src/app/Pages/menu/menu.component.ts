@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Service} from "../../Services/service";
 import {Router} from "@angular/router";
 
@@ -9,24 +9,33 @@ import {Router} from "@angular/router";
 })
 export class MenuComponent implements OnInit {
   menu: any;
-  isLoading= false;
+  user: any;
+  isLoading = false;
+
   constructor(private service: Service,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.service.getMenus().subscribe((data)=>{
-      this.menu = data;
-      this.isLoading = false;
-      console.log(this.menu)
-    });
+    this.user = localStorage.getItem('user');
+    if (this.user === null) {
+      this.router.navigate(['user-pages/login']);
+      console.log(this.user)
+    } else {
+      this.isLoading = true;
+      this.service.getMenus().subscribe((data) => {
+        this.menu = data;
+        this.isLoading = false;
+        console.log(this.menu)
+      });
+    }
   }
 
   added(m) {
-    this.router.navigate(['menu-detail',m]);
+    this.router.navigate(['menu-detail', m]);
   }
 
-  delete(m){
+  delete(m) {
     this.service.deleteMenu(m);
   }
 
