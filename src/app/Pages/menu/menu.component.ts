@@ -12,9 +12,11 @@ export class MenuComponent implements OnInit {
   user: any;
   isLoading = false;
 
+
   constructor(private service: Service,
               private router: Router) {
   }
+
 
   ngOnInit(): void {
     this.user = localStorage.getItem('user');
@@ -29,6 +31,7 @@ export class MenuComponent implements OnInit {
       });
     }
   }
+
 
   added(m) {
     this.router.navigate(['menu-detail', m]);

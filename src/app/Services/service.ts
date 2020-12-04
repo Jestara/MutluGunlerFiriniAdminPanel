@@ -10,8 +10,8 @@ import {MProduct} from "../Models/MProduct";
   providedIn: 'root'
 })
 export class Service {
-  BASE_URL = 'https://service.mutlugunlerfirini.com.tr/api/';
-  // BASE_URL = 'https://localhost:44352/api/';
+  // BASE_URL = 'https://service.mutlugunlerfirini.com.tr/api/';
+  BASE_URL = 'https://localhost:44352/api/';
 
   constructor(private http: HttpClient) { }
 
@@ -53,18 +53,15 @@ export class Service {
   }
 
   //Post
-  postMenu(menu: MMenu) {
-    const obj = {
-      name: menu.name,
-      description: menu.description,
-      imageUrl: menu.imageUrl,
-      file: menu.file
-    }
+  postMenu(menu: any, file: File) {
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('name', menu.name);
+    fd.append('description', menu.description);
     const headers = new HttpHeaders({
-      'Content-Type': 'multipart/form-data',
       'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'menus/add', obj, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'menus/add', fd, {headers}).toPromise();
   }
 
   postCategory(category: MCategory) {
