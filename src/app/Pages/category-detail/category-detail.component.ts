@@ -10,12 +10,14 @@ import {Service} from "../../Services/service";
 })
 export class CategoryDetailComponent implements OnInit {
   category: any;
+  selectedFile: File;
   catModel = {
     id: null,
     name: null,
     description: null,
     imageUrl: null,
-    menuId: null
+    menuId: null,
+    file: null
   };
   menus: any;
   button: boolean;
@@ -32,7 +34,8 @@ export class CategoryDetailComponent implements OnInit {
           name: this.category.name,
           description: this.category.description,
           imageUrl: this.category.imageUrl,
-          menuId: this.category.menuId
+          menuId: this.category.menuId,
+          file: this.selectedFile
         };
         this.button = true;
       }else{
@@ -44,8 +47,12 @@ export class CategoryDetailComponent implements OnInit {
     })
   }
 
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+  }
+
   onSubmit(){
-    this.service.postCategory(this.catModel);
+    this.service.postCategory(this.catModel, this.selectedFile);
   }
 
   onSave(){

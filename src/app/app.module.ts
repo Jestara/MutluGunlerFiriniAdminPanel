@@ -26,6 +26,8 @@ import {CategoryDetailComponent} from './Pages/category-detail/category-detail.c
 import { MenuComponent } from './Pages/menu/menu.component';
 import { MenuDetailComponent } from './Pages/menu-detail/menu-detail.component';
 import {MaterialModule} from './Module/material/material.module';
+import {ImageCropperModule} from 'ngx-image-cropper';
+import { DialogComponent } from './Dialogs/dialog/dialog.component';
 
 
 
@@ -47,6 +49,7 @@ import {MaterialModule} from './Module/material/material.module';
     CategoryDetailComponent,
     MenuComponent,
     MenuDetailComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import {MaterialModule} from './Module/material/material.module';
     ReactiveFormsModule,
     ChartsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    ImageCropperModule
   ],
   providers: [ThemeService, Service],
   bootstrap: [AppComponent]

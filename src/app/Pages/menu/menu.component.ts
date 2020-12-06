@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Service} from "../../Services/service";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogComponent} from "../../Dialogs/dialog/dialog.component";
 
 @Component({
   selector: 'app-menu',
@@ -14,7 +16,8 @@ export class MenuComponent implements OnInit {
 
 
   constructor(private service: Service,
-              private router: Router) {
+              private router: Router,
+              public dialog: MatDialog) {
   }
 
 
@@ -27,7 +30,6 @@ export class MenuComponent implements OnInit {
       this.service.getMenus().subscribe((data) => {
         this.menu = data;
         this.isLoading = false;
-        console.log(this.menu)
       });
     }
   }
@@ -38,7 +40,15 @@ export class MenuComponent implements OnInit {
   }
 
   delete(m) {
-    this.service.deleteMenu(m);
+    const dialogRef = this.dialog.open(DialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.service.deleteMenu(m);
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      }
+    });
   }
 
 }

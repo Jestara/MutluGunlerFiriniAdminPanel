@@ -10,8 +10,8 @@ import {MProduct} from "../Models/MProduct";
   providedIn: 'root'
 })
 export class Service {
-  // BASE_URL = 'https://service.mutlugunlerfirini.com.tr/api/';
-  BASE_URL = 'https://localhost:44352/api/';
+  BASE_URL = 'https://service.mutlugunlerfirini.com.tr/api/';
+  // BASE_URL = 'https://localhost:44352/api/';
 
   constructor(private http: HttpClient) { }
 
@@ -59,38 +59,34 @@ export class Service {
     fd.append('name', menu.name);
     fd.append('description', menu.description);
     const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
     return this.http.post(this.BASE_URL + 'menus/add', fd, {headers}).toPromise();
   }
 
-  postCategory(category: MCategory) {
-    const obj = {
-      name: category.name,
-      description: category.description,
-      imageUrl: category.imageUrl,
-      menuId: parseInt(String(category.menuId))
-    }
+  postCategory(category: any, file: File) {
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('name', category.name);
+    fd.append('description', category.description);
+    fd.append('menuId', category.menuId);
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'categories/add', obj, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'categories/add', fd, {headers}).toPromise();
   }
 
-  postProduct(product: MProduct) {
-    const obj = {
-      name: product.name,
-      description: product.description,
-      imageUrl: product.imageUrl,
-      price: parseFloat(String(product.price)),
-      categoryId: parseInt(String(product.categoryId))
-    }
+  postProduct(product: any, file: File) {
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('name', product.name);
+    fd.append('description', product.description);
+    fd.append('price', product.price);
+    fd.append('categoryId', product.categoryId);
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'products/add', obj, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'products/add', fd, {headers}).toPromise();
   }
 
   postUser(user: any){
@@ -102,18 +98,23 @@ export class Service {
   }
 
   //update
-  updateMenu(menu: MMenu) {
-    const obj = {
+  updateMenu(menu: any, file: File) {
+/*    const obj = {
       id: parseInt(String(menu.id)),
       name: menu.name,
       description: menu.description,
       imageUrl: menu.imageUrl,
-    }
+    }*/
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('id', menu.id);
+    fd.append('name', menu.name);
+    fd.append('description', menu.description);
+    console.log(fd);
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'menus/update', obj, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'menus/update', fd, {headers}).toPromise();
   }
 
   updateCategory(category: MCategory) {

@@ -12,12 +12,12 @@
         </div>
         <div class="form-group">
           <label>Resim Yükle</label>
-          <div class="input-group col-xs-12">
-            <input type="text" class="form-control file-upload-info" disabled placeholder="Resim yükle">
-            <span class="input-group-append">
-                <input type="file"  class="file-upload-browse btn btn-gradient-primary" name="file" [(ngModel)]="menuModel.file" (change)="onFileChanged($event)" #fileInput>
-              </span>
+          <div class="input-group">
+            <input type="file"  class="file-upload-browse btn btn-gradient-primary" name="file" [(ngModel)]="menuModel.file" (change)="onFileChanged($event)" #fileInput>
           </div>
+        </div>
+        <div class="form-group" *ngIf="menuModel.imageUrl">
+          <img src="https://{{menuModel.imageUrl}}">
         </div>
         <div class="form-group">
           <label for="exampleTextarea1">Açıklama</label>

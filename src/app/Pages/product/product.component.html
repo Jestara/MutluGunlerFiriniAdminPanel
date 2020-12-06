@@ -24,9 +24,6 @@
               <th>
                 Açıklama
               </th>
-              <th>
-                Resim
-              </th>
             </tr>
             </thead>
             <tbody>
@@ -43,13 +40,10 @@
               <td>
                 {{p.description}}
               </td>
-              <td>
-                {{p.imageUrl}}
-              </td>
 
               <td>
-                <button class="btn btn-info" (click)="added(p)"><i class="mdi mdi-pencil" ></i> Düzenle</button>
-                <button class="btn btn-danger" (click)="delete(p)"><i class="mdi mdi-delete"></i> Sil</button>
+                <button class="btn btn-info" (click)="added(p)"><i class="mdi mdi-pencil" ></i></button>
+                <button class="btn btn-danger" (click)="delete(p)"><i class="mdi mdi-delete"></i></button>
               </td>
             </tr>
             </tbody>

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Service} from "../../Services/service";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogComponent} from "../../Dialogs/dialog/dialog.component";
 
 @Component({
   selector: 'app-product',
@@ -13,7 +15,8 @@ export class ProductComponent implements OnInit {
   user: any;
 
   constructor(private router: Router,
-              private service: Service) {
+              private service: Service,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -34,7 +37,13 @@ export class ProductComponent implements OnInit {
   }
 
   delete(p) {
-    this.service.deleteProduct(p);
+    const dialogRef = this.dialog.open(DialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.service.deleteProduct(p);
+        location.reload();
+      }
+    });
   }
 
 }

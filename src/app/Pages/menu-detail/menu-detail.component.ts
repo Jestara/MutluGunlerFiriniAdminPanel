@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Service} from "../../Services/service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -15,24 +15,23 @@ export class MenuDetailComponent implements OnInit {
   selectedFile: File;
   menuModel = {
     id: null,
-    name: null,
-    description: null,
-    imageUrl: null,
+    name: '',
+    description: '',
+    imageUrl: '',
     file: null
   };
   button: boolean;
-  menuAddForm: FormGroup;
-  menuu: MMenu;
 
   constructor(private route: ActivatedRoute,
               private service: Service,
               private formBuilder: FormBuilder,
-              private http: HttpClient) { }
+              private router: Router) {
+  }
 
   ngOnInit(): void {
-    this.route.params.subscribe(data=>{
+    this.route.params.subscribe(data => {
       this.menu = data;
-      if (this.menu.id){
+      if (this.menu.id) {
         this.menuModel = {
           id: this.menu.id,
           name: this.menu.name,
@@ -41,42 +40,27 @@ export class MenuDetailComponent implements OnInit {
           file: this.selectedFile
         };
         this.button = true;
-      }else{
+      } else {
         this.button = false;
       }
     })
-    this.createMenuAddForm();
   }
 
-  createMenuAddForm() {
-    this.menuAddForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      imageUrl: ['', Validators.required]
-    });
-  }
 
-  add(){
-    this.menuu = Object.assign({}, this.menuAddForm.value);
-    console.log(this.menuu);
-  }
-
-  onSubmit(){
+  onSubmit() {
     this.service.postMenu(this.menuModel, this.selectedFile);
+    setTimeout(() => {
+      this.router.navigate(['/menu']);
+    }, 2000);
   }
 
-  onSave(){
-    this.service.updateMenu(this.menuModel);
+  onSave() {
+    this.service.updateMenu(this.menuModel, this.selectedFile);
+    this.router.navigate(['/menu']);
   }
 
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
   }
 
-  /*const fd = new FormData();
-  fd.append('file', this.selectedFile)
-  const headers = new HttpHeaders({
-    'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
-  });
-  this.http.post('https://localhost:44352/api/menus/add', fd, {headers}).toPromise();*/
 }

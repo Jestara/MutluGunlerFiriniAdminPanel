@@ -16,7 +16,8 @@ export class ProductDetailComponent implements OnInit {
     description: null,
     imageUrl: null,
     price: null,
-    categoryId: null
+    categoryId: null,
+    file: null
   };
   categories: any;
   button: boolean;
@@ -34,7 +35,8 @@ export class ProductDetailComponent implements OnInit {
           description: this.product.description,
           imageUrl: this.product.imageUrl,
           price: this.product.price,
-          categoryId: this.product.categoryId
+          categoryId: this.product.categoryId,
+          file: this.selectedFile
         };
         this.button = true;
       }else{
@@ -51,9 +53,7 @@ export class ProductDetailComponent implements OnInit {
     console.log('Çalıştı');
   }
   onSubmit(){
-    this.service.postProduct(this.proModel);
-    console.log(this.selectedFile.name);
-
+    this.service.postProduct(this.proModel, this.selectedFile);
   }
 
   onSave(){
