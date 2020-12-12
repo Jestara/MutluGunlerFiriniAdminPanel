@@ -4,6 +4,7 @@ import {Service} from "../../Services/service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MMenu} from "../../Models/MMenu";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-menu-detail',
@@ -25,21 +26,27 @@ export class MenuDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private service: Service,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(data => {
-      this.menu = data;
-      if (this.menu.id) {
-        this.menuModel = {
-          id: this.menu.id,
-          name: this.menu.name,
-          description: this.menu.description,
-          imageUrl: this.menu.imageUrl,
-          file: this.selectedFile
-        };
+    this.route.paramMap.subscribe(data => {
+      const id = data.get('id');
+      if (id) {
         this.button = true;
+        this.service.getMenuById(id).then((response) => {
+          this.menu = response;
+          if (this.menu) {
+            this.menuModel = {
+              id: this.menu.id,
+              name: this.menu.name,
+              description: this.menu.description,
+              imageUrl: this.menu.imageUrl,
+              file: this.selectedFile
+            };
+          }
+        });
       } else {
         this.button = false;
       }
@@ -49,14 +56,26 @@ export class MenuDetailComponent implements OnInit {
 
   onSubmit() {
     this.service.postMenu(this.menuModel, this.selectedFile);
+    this.toastr.success('Başarıyla kaydedildi.', '', {
+      timeOut: 3000,
+      positionClass: 'toast-top-center'
+    });
     setTimeout(() => {
-      this.router.navigate(['/menu']);
-    }, 2000);
+      this.router.navigateByUrl('/menu');
+    }, 3000);
   }
 
   onSave() {
-    this.service.updateMenu(this.menuModel, this.selectedFile);
-    this.router.navigate(['/menu']);
+    this.service.updateMenu(this.menuModel, this.selectedFile).subscribe((data) => {
+      this.menu = data;
+    });
+    this.toastr.success('Başarıyla kaydedildi.', '', {
+      timeOut: 3000,
+      positionClass: 'toast-top-full-width'
+    });
+    setTimeout(() => {
+      this.router.navigateByUrl('/menu');
+    }, 3000);
   }
 
   onFileChanged(event) {

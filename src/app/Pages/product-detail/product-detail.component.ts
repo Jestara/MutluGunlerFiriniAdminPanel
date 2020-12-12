@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 import {Service} from "../../Services/service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-product-detail',
@@ -23,41 +24,63 @@ export class ProductDetailComponent implements OnInit {
   button: boolean;
 
   constructor(private route: ActivatedRoute,
-              private service: Service) { }
+              private service: Service,
+              private router: Router,
+              private toastr: ToastrService) {
+  }
 
   ngOnInit(): void {
-    this.route.params.subscribe(data=>{
-      this.product = data;
-      if (this.product.id){
-        this.proModel = {
-          id: this.product.id,
-          name: this.product.name,
-          description: this.product.description,
-          imageUrl: this.product.imageUrl,
-          price: this.product.price,
-          categoryId: this.product.categoryId,
-          file: this.selectedFile
-        };
+    this.route.paramMap.subscribe(data => {
+      const id = data.get('id');
+      if (id) {
         this.button = true;
-      }else{
+        this.service.getProductById(id).then((response) => {
+          this.product = response;
+          if (this.product) {
+            this.proModel = {
+              id: this.product.id,
+              name: this.product.name,
+              description: this.product.description,
+              imageUrl: this.product.imageUrl,
+              price: this.product.price,
+              categoryId: this.product.categoryId,
+              file: this.selectedFile
+            };
+          }
+        });
+      } else {
         this.button = false;
       }
     })
-    this.service.getCategories().subscribe(data=>{
+    this.service.getCategories().subscribe(data => {
       this.categories = data;
     })
   }
 
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
-    console.log('Çalıştı');
-  }
-  onSubmit(){
-    this.service.postProduct(this.proModel, this.selectedFile);
   }
 
-  onSave(){
-    this.service.updateProduct(this.proModel);
+  onSubmit() {
+    this.service.postProduct(this.proModel, this.selectedFile);
+    this.toastr.success('Başarıyla kaydedildi.', '', {
+      timeOut: 4000,
+      positionClass: 'toast-top-center'
+    });
+    setTimeout(() => {
+      this.router.navigateByUrl('/product');
+    }, 4000);
+  }
+
+  onSave() {
+    this.service.updateProduct(this.proModel, this.selectedFile);
+    this.toastr.success('Başarıyla kaydedildi.', '', {
+      timeOut: 4000,
+      positionClass: 'toast-top-center'
+    });
+    setTimeout(() => {
+      this.router.navigateByUrl('/product');
+    }, 4000);
   }
 
 }

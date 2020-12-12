@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 import {MCategory} from "../../Models/MCategory";
 import {Service} from "../../Services/service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-category-detail',
@@ -23,26 +24,34 @@ export class CategoryDetailComponent implements OnInit {
   button: boolean;
 
   constructor(private route: ActivatedRoute,
-              private service: Service) { }
+              private service: Service,
+              private router: Router,
+              private toastr: ToastrService) {
+  }
 
   ngOnInit(): void {
-    this.route.params.subscribe(data=>{
-      this.category = data;
-      if (this.category.id){
-        this.catModel = {
-          id: this.category.id,
-          name: this.category.name,
-          description: this.category.description,
-          imageUrl: this.category.imageUrl,
-          menuId: this.category.menuId,
-          file: this.selectedFile
-        };
+    this.route.paramMap.subscribe(data => {
+      const id = data.get('id');
+      if (id) {
         this.button = true;
-      }else{
+        this.service.getCategoryById(id).then((response) => {
+          this.category = response;
+          if (this.category) {
+            this.catModel = {
+              id: this.category.id,
+              name: this.category.name,
+              description: this.category.description,
+              imageUrl: this.category.imageUrl,
+              menuId: this.category.menuId,
+              file: this.selectedFile
+            };
+          }
+        });
+      } else {
         this.button = false;
       }
     })
-    this.service.getMenus().subscribe(data=>{
+    this.service.getMenus().subscribe(data => {
       this.menus = data;
     })
   }
@@ -51,12 +60,26 @@ export class CategoryDetailComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
 
-  onSubmit(){
+  onSubmit() {
     this.service.postCategory(this.catModel, this.selectedFile);
+    this.toastr.success('Başarıyla kaydedildi.', '', {
+      timeOut: 4000,
+      positionClass: 'toast-top-center'
+    });
+    setTimeout(() => {
+      this.router.navigateByUrl('/category');
+    }, 4000);
   }
 
-  onSave(){
-    this.service.updateCategory(this.catModel);
+  onSave() {
+    this.service.updateCategory(this.catModel, this.selectedFile);
+    this.toastr.success('Başarıyla kaydedildi.', '', {
+      timeOut: 4000,
+      positionClass: 'toast-top-center'
+    });
+    setTimeout(() => {
+      this.router.navigateByUrl('/category');
+    }, 4000);
   }
 
 }

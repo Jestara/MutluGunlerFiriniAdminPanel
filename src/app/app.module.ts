@@ -28,6 +28,8 @@ import { MenuDetailComponent } from './Pages/menu-detail/menu-detail.component';
 import {MaterialModule} from './Module/material/material.module';
 import {ImageCropperModule} from 'ngx-image-cropper';
 import { DialogComponent } from './Dialogs/dialog/dialog.component';
+import {ToastrModule} from "ngx-toastr";
+import {MatSortModule} from "@angular/material/sort";
 
 
 
@@ -51,18 +53,20 @@ import { DialogComponent } from './Dialogs/dialog/dialog.component';
     MenuDetailComponent,
     DialogComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ChartsModule,
-    HttpClientModule,
-    MaterialModule,
-    ImageCropperModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ChartsModule,
+        HttpClientModule,
+        MaterialModule,
+        ImageCropperModule,
+        ToastrModule.forRoot(),
+        MatSortModule
+    ],
   providers: [ThemeService, Service],
   bootstrap: [AppComponent]
 })

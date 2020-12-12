@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Service} from "../../Services/service";
-import {Router} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
-import {DialogComponent} from "../../Dialogs/dialog/dialog.component";
+import {Service} from '../../Services/service';
+import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogComponent} from '../../Dialogs/dialog/dialog.component';
 
 @Component({
   selector: 'app-menu',
@@ -35,8 +35,8 @@ export class MenuComponent implements OnInit {
   }
 
 
-  added(m) {
-    this.router.navigate(['menu-detail', m]);
+  edit(m) {
+    this.router.navigate(['menu-detail', m.id]);
   }
 
   delete(m) {
@@ -46,7 +46,7 @@ export class MenuComponent implements OnInit {
         this.service.deleteMenu(m);
         setTimeout(() => {
           location.reload();
-        }, 2000);
+        }, 3000);
       }
     });
   }

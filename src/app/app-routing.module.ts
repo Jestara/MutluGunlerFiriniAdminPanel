@@ -16,15 +16,19 @@ import {LoginComponent} from './user-pages/login/login.component';
 const routes: Routes = [
   {path: '', redirectTo: '/menu', pathMatch: 'full'},
   { path: 'user-pages', loadChildren: () => import('./user-pages/user-pages.module').then(m => m.UserPagesModule) },
+  {path: 'user-pages/login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'user', component: UserComponent},
   {path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule)},
   {path: 'category', component: CategoryComponent},
   {path: 'category-detail', component: CategoryDetailComponent},
+  {path: 'category-detail/:id', component: CategoryDetailComponent},
   {path: 'product', component: ProductComponent},
   {path: 'product-detail', component: ProductDetailComponent},
+  {path: 'product-detail/:id', component: ProductDetailComponent},
   {path: 'menu', component: MenuComponent},
   {path: 'menu-detail', component: MenuDetailComponent},
+  {path: 'menu-detail/:id', component: MenuDetailComponent},
   {path: 'forms', component:BasicElementsComponent}
 
 

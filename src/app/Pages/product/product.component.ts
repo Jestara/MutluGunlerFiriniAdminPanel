@@ -33,7 +33,7 @@ export class ProductComponent implements OnInit {
   }
 
   added(p) {
-    this.router.navigate(['product-detail', p]);
+    this.router.navigate(['product-detail', p.id]);
   }
 
   delete(p) {
@@ -41,7 +41,9 @@ export class ProductComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.service.deleteProduct(p);
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
       }
     });
   }

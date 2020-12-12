@@ -26,7 +26,7 @@
         <div class="form-group">
           <label >Menü</label>
           <select class="form-control" name="menuId"  [(ngModel)]="catModel.menuId">
-            <option type="number" *ngFor="let m of menus" value="{{m.id}}">{{m.name}}</option>
+            <option *ngFor="let m of menus" value="{{m.id}}">{{m.name}}</option>
           </select>
         </div>
         <button *ngIf="button === false" type="submit" class="btn btn-gradient-primary mr-2" (click)="onSubmit()">Kaydet</button>

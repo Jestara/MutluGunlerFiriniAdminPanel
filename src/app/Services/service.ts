@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {MCategory} from "../Models/MCategory";
-import {MMenu} from "../Models/MMenu";
-import {Observable} from "rxjs";
-import {MProduct} from "../Models/MProduct";
+import {MCategory} from '../Models/MCategory';
+import {MMenu} from '../Models/MMenu';
+import {Observable} from 'rxjs';
+import {MProduct} from '../Models/MProduct';
 
 
 @Injectable({
@@ -13,19 +13,26 @@ export class Service {
   BASE_URL = 'https://service.mutlugunlerfirini.com.tr/api/';
   // BASE_URL = 'https://localhost:44352/api/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   // GET
-  getMenus(){
+  getMenus() {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980'),
-      'Accept': 'application/json'
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980'),
+      Accept: 'application/json'
     });
     return this.http.get<MMenu>(this.BASE_URL + 'menus/getall', {headers});
   }
+  getMenuById(id) {
+    const headers = new HttpHeaders({
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980'),
+      Accept: 'application/json'
+    });
+    return this.http.get<MMenu>(this.BASE_URL + 'menus/getbyid?menuId=' + id, {headers}).toPromise();
+  }
 
-  getCategories(){
+  getCategories() {
     return this.http.get(this.BASE_URL + 'categories/getall', {
       headers: {
         Accept: 'application/json',
@@ -33,8 +40,15 @@ export class Service {
       }
     });
   }
+  getCategoryById(id) {
+    const headers = new HttpHeaders({
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980'),
+      Accept: 'application/json'
+    });
+    return this.http.get<MCategory>(this.BASE_URL + 'categories/getbyid?categoryId=' + id, {headers}).toPromise();
+  }
 
-  getProducts(){
+  getProducts() {
     return this.http.get(this.BASE_URL + 'products/getall', {
       headers: {
         Accept: 'application/json',
@@ -43,7 +57,15 @@ export class Service {
     });
   }
 
-  getUsers(){
+  getProductById(id) {
+    const headers = new HttpHeaders({
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980'),
+      Accept: 'application/json'
+    });
+    return this.http.get<MProduct>(this.BASE_URL + 'products/getbyid?productId=' + id, {headers}).toPromise();
+  }
+
+  getUsers() {
     return this.http.get(this.BASE_URL + 'users/login', {
       headers: {
         Accept: 'application/json',
@@ -52,7 +74,7 @@ export class Service {
     });
   }
 
-  //Post
+  // Post
   postMenu(menu: any, file: File) {
     const fd = new FormData();
     fd.append('file', file);
@@ -71,7 +93,7 @@ export class Service {
     fd.append('description', category.description);
     fd.append('menuId', category.menuId);
     const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
     return this.http.post(this.BASE_URL + 'categories/add', fd, {headers}).toPromise();
   }
@@ -84,76 +106,68 @@ export class Service {
     fd.append('price', product.price);
     fd.append('categoryId', product.categoryId);
     const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
     return this.http.post(this.BASE_URL + 'products/add', fd, {headers}).toPromise();
   }
 
-  postUser(user: any){
+  postUser(user: any) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
     return this.http.post(this.BASE_URL + 'users/login', user, {headers}).toPromise();
   }
 
-  //update
+  // update
   updateMenu(menu: any, file: File) {
-/*    const obj = {
-      id: parseInt(String(menu.id)),
-      name: menu.name,
-      description: menu.description,
-      imageUrl: menu.imageUrl,
-    }*/
     const fd = new FormData();
-    fd.append('file', file);
     fd.append('id', menu.id);
     fd.append('name', menu.name);
     fd.append('description', menu.description);
-    console.log(fd);
+    fd.append('imageUrl', menu.imageUrl);
+    fd.append('file', file);
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'menus/update', fd, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'menus/update', fd, {headers});
   }
 
-  updateCategory(category: MCategory) {
-    const obj = {
-      id: parseInt(String(category.id)),
-      name: category.name,
-      description: category.description,
-      imageUrl: category.imageUrl,
-      menuId: parseInt(String(category.menuId))
-    }
+  updateCategory(category: any, file: File) {
+    const fd = new FormData();
+    fd.append('id', category.id);
+    fd.append('name', category.name);
+    fd.append('description', category.description);
+    fd.append('imageUrl', category.imageUrl);
+    fd.append('menuId', category.menuId);
+    fd.append('file', file);
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'categories/update', obj, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'categories/update', fd, {headers}).toPromise();
   }
 
-  updateProduct(product: MProduct) {
-    const obj = {
-      id: parseInt(String(product.id)),
-      name: product.name,
-      description: product.description,
-      imageUrl: product.imageUrl,
-      price: parseFloat(String(product.price)),
-      categoryId: parseInt(String(product.categoryId))
-    }
+  updateProduct(product: any, file: File) {
+    const fd = new FormData();
+    fd.append('id', product.id);
+    fd.append('name', product.name);
+    fd.append('description', product.description);
+    fd.append('imageUrl', product.imageUrl);
+    fd.append('price', product.price);
+    fd.append('categoryId', product.categoryId);
+    fd.append('file', file);
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'products/update', obj, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'products/update', fd, {headers}).toPromise();
   }
 
 
-  //delete
+  // delete
   deleteMenu(menu: MMenu) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
     return this.http.post(this.BASE_URL + 'menus/delete', menu, {headers}).toPromise();
   }
@@ -161,7 +175,7 @@ export class Service {
   deleteCategory(category: MCategory) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
     return this.http.post(this.BASE_URL + 'categories/delete', category, {headers}).toPromise();
   }
@@ -169,14 +183,10 @@ export class Service {
   deleteProduct(product: MProduct) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
     return this.http.post(this.BASE_URL + 'products/delete', product, {headers}).toPromise();
   }
-
-
-
-
 
 
 }

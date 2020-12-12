@@ -34,7 +34,7 @@ export class CategoryComponent implements OnInit {
   }
 
   added(c) {
-    this.router.navigate(['category-detail', c]);
+    this.router.navigate(['category-detail', c.id]);
   }
 
   delete(c) {
@@ -42,7 +42,9 @@ export class CategoryComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.service.deleteCategory(c);
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
       }
     });
   }
