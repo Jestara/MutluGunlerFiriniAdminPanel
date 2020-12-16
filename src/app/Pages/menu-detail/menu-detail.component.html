@@ -2,6 +2,7 @@
   <div class="card">
     <div class="card-body">
       <h4 class="card-title">Menü Bilgileri</h4>
+      <app-spinner *ngIf="isLoading"></app-spinner>
       <form class="forms-sample">
         <div class="form-group">
           <input type="hidden" class="form-control" name="id"  [(ngModel)]="menuModel.id">
@@ -19,6 +20,8 @@
         <div class="form-group" *ngIf="menuModel.imageUrl">
           <img src="https://{{menuModel.imageUrl}}">
         </div>
+
+
         <div class="form-group">
           <label for="exampleTextarea1">Açıklama</label>
           <textarea class="form-control" id="exampleTextarea1" rows="4" name="description" [(ngModel)]="menuModel.description"></textarea>

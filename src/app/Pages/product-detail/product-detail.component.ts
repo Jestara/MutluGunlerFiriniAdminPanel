@@ -22,6 +22,7 @@ export class ProductDetailComponent implements OnInit {
   };
   categories: any;
   button: boolean;
+  isLoading = false;
 
   constructor(private route: ActivatedRoute,
               private service: Service,
@@ -62,25 +63,43 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.postProduct(this.proModel, this.selectedFile);
-    this.toastr.success('Başarıyla kaydedildi.', '', {
-      timeOut: 4000,
-      positionClass: 'toast-top-center'
-    });
-    setTimeout(() => {
-      this.router.navigateByUrl('/product');
-    }, 4000);
+    this.isLoading = true;
+    this.service.postProduct(this.proModel, this.selectedFile).subscribe((data) => {
+        this.toastr.success('Başarıyla kaydedildi.', '', {
+          timeOut: 3000,
+          positionClass: 'toast-top-full-width'
+        });
+      this.isLoading = false;
+        setTimeout(() => {
+          this.router.navigateByUrl('/product');
+        }, 3000);
+      },error =>
+      {
+        this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
+          positionClass: 'toast-top-full-width'
+        });
+      }
+    );
   }
 
   onSave() {
-    this.service.updateProduct(this.proModel, this.selectedFile);
-    this.toastr.success('Başarıyla kaydedildi.', '', {
-      timeOut: 4000,
-      positionClass: 'toast-top-center'
-    });
-    setTimeout(() => {
-      this.router.navigateByUrl('/product');
-    }, 4000);
+    this.isLoading = true;
+    this.service.updateProduct(this.proModel, this.selectedFile).subscribe((data) => {
+        this.toastr.success('Başarıyla kaydedildi.', '', {
+          timeOut: 3000,
+          positionClass: 'toast-top-full-width'
+        });
+      this.isLoading = false;
+        setTimeout(() => {
+          this.router.navigateByUrl('/product');
+        }, 3000);
+      },error =>
+      {
+        this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
+          positionClass: 'toast-top-full-width'
+        });
+      }
+    );
   }
 
 }

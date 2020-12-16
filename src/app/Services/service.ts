@@ -83,7 +83,7 @@ export class Service {
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'menus/add', fd, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'menus/add', fd, {headers});
   }
 
   postCategory(category: any, file: File) {
@@ -95,7 +95,7 @@ export class Service {
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'categories/add', fd, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'categories/add', fd, {headers});
   }
 
   postProduct(product: any, file: File) {
@@ -108,7 +108,7 @@ export class Service {
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'products/add', fd, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'products/add', fd, {headers});
   }
 
   postUser(user: any) {
@@ -144,7 +144,7 @@ export class Service {
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'categories/update', fd, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'categories/update', fd, {headers});
   }
 
   updateProduct(product: any, file: File) {
@@ -159,7 +159,7 @@ export class Service {
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'products/update', fd, {headers}).toPromise();
+    return this.http.post(this.BASE_URL + 'products/update', fd, {headers});
   }
 
 

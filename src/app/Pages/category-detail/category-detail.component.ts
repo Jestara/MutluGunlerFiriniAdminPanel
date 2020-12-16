@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MCategory} from "../../Models/MCategory";
 import {Service} from "../../Services/service";
 import {ToastrService} from "ngx-toastr";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-category-detail',
@@ -14,14 +15,15 @@ export class CategoryDetailComponent implements OnInit {
   selectedFile: File;
   catModel = {
     id: null,
-    name: null,
-    description: null,
+    name: '',
+    description: '',
     imageUrl: null,
     menuId: null,
     file: null
   };
   menus: any;
   button: boolean;
+  isLoading = false;
 
   constructor(private route: ActivatedRoute,
               private service: Service,
@@ -61,25 +63,44 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.postCategory(this.catModel, this.selectedFile);
-    this.toastr.success('Başarıyla kaydedildi.', '', {
-      timeOut: 4000,
-      positionClass: 'toast-top-center'
-    });
-    setTimeout(() => {
-      this.router.navigateByUrl('/category');
-    }, 4000);
+    this.isLoading = true;
+    this.service.postCategory(this.catModel, this.selectedFile).subscribe((data) => {
+      this.toastr.success('Başarıyla kaydedildi.', '', {
+        timeOut: 3000,
+        positionClass: 'toast-top-full-width'
+      });
+      this.isLoading = false;
+      setTimeout(() => {
+        this.router.navigateByUrl('/category');
+      }, 3000);
+      },error =>
+      {
+        this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
+          positionClass: 'toast-top-full-width'
+        });
+      }
+    );
   }
 
   onSave() {
-    this.service.updateCategory(this.catModel, this.selectedFile);
-    this.toastr.success('Başarıyla kaydedildi.', '', {
-      timeOut: 4000,
-      positionClass: 'toast-top-center'
-    });
-    setTimeout(() => {
-      this.router.navigateByUrl('/category');
-    }, 4000);
+    this.isLoading = true;
+    this.service.updateCategory(this.catModel, this.selectedFile).subscribe((data) => {
+        this.toastr.success('Başarıyla kaydedildi.', '', {
+          timeOut: 3000,
+          positionClass: 'toast-top-full-width'
+        });
+      this.isLoading = false;
+        setTimeout(() => {
+          this.router.navigateByUrl('/category');
+        }, 3000);
+      },error =>
+      {
+        this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
+          positionClass: 'toast-top-full-width'
+        });
+      }
+    );
+
   }
 
 }

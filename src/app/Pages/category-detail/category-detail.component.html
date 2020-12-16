@@ -2,6 +2,7 @@
   <div class="card">
     <div class="card-body">
       <h4 class="card-title">Kategori Bilgileri</h4>
+      <app-spinner *ngIf="isLoading"></app-spinner>
       <form class="forms-sample">
         <div class="form-group">
           <input type="hidden" class="form-control" name="id" value="category.id" [(ngModel)]="catModel.id">

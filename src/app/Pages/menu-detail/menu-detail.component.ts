@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MMenu} from "../../Models/MMenu";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ToastrService} from "ngx-toastr";
+import {ImageCroppedEvent} from "ngx-image-cropper";
 
 @Component({
   selector: 'app-menu-detail',
@@ -22,6 +23,10 @@ export class MenuDetailComponent implements OnInit {
     file: null
   };
   button: boolean;
+  isLoading = false;
+
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
 
   constructor(private route: ActivatedRoute,
               private service: Service,
@@ -55,27 +60,41 @@ export class MenuDetailComponent implements OnInit {
 
 
   onSubmit() {
-    this.service.postMenu(this.menuModel, this.selectedFile);
-    this.toastr.success('Başarıyla kaydedildi.', '', {
-      timeOut: 3000,
-      positionClass: 'toast-top-center'
-    });
-    setTimeout(() => {
-      this.router.navigateByUrl('/menu');
-    }, 3000);
+    this.isLoading = true;
+    this.service.postMenu(this.menuModel, this.selectedFile).subscribe((data) => {
+        this.toastr.success('Başarıyla kaydedildi.', '', {
+          timeOut: 3000,
+          positionClass: 'toast-top-full-width'
+        });
+      this.isLoading = false;
+        setTimeout(() => {
+          this.router.navigateByUrl('/menu');
+        }, 3000);
+      }, error => {
+        this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
+          positionClass: 'toast-top-full-width'
+        });
+      }
+    );
   }
 
   onSave() {
+    this.isLoading = true;
     this.service.updateMenu(this.menuModel, this.selectedFile).subscribe((data) => {
-      this.menu = data;
-    });
-    this.toastr.success('Başarıyla kaydedildi.', '', {
-      timeOut: 3000,
-      positionClass: 'toast-top-full-width'
-    });
-    setTimeout(() => {
-      this.router.navigateByUrl('/menu');
-    }, 3000);
+        this.toastr.success('Başarıyla kaydedildi.', '', {
+          timeOut: 3000,
+          positionClass: 'toast-top-full-width'
+        });
+      this.isLoading = false;
+        setTimeout(() => {
+          this.router.navigateByUrl('/menu');
+        }, 3000);
+      }, error => {
+        this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
+          positionClass: 'toast-top-full-width'
+        });
+      }
+    );
   }
 
   onFileChanged(event) {

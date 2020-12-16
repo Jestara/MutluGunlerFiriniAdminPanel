@@ -6,6 +6,7 @@
         Ürün Bilgileri
       </p>
       <form class="forms-sample">
+        <app-spinner *ngIf="isLoading"></app-spinner>
         <div class="form-group">
           <input type="hidden" class="form-control" name="id" [(ngModel)]="proModel.id">
         </div>
