@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Service} from "../../Services/service";
 import {ToastrService} from "ngx-toastr";
+import {ImageCroppedEvent} from "ngx-image-cropper";
 
 @Component({
   selector: 'app-product-detail',
@@ -13,16 +14,19 @@ export class ProductDetailComponent implements OnInit {
   selectedFile: File;
   proModel = {
     id: null,
-    name: null,
-    description: null,
-    imageUrl: null,
+    name: '',
+    description: '',
+    imageUrl: '',
     price: null,
-    categoryId: null,
-    file: null
+    categoryId: null
   };
   categories: any;
   button: boolean;
   isLoading = false;
+
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  imageSize: any;
 
   constructor(private route: ActivatedRoute,
               private service: Service,
@@ -44,8 +48,8 @@ export class ProductDetailComponent implements OnInit {
               description: this.product.description,
               imageUrl: this.product.imageUrl,
               price: this.product.price,
-              categoryId: this.product.categoryId,
-              file: this.selectedFile
+              categoryId: this.product.categoryId
+              // file: this.croppedImage
             };
           }
         });
@@ -64,7 +68,7 @@ export class ProductDetailComponent implements OnInit {
 
   onSubmit() {
     this.isLoading = true;
-    this.service.postProduct(this.proModel, this.selectedFile).subscribe((data) => {
+    this.service.postProduct(this.proModel, this.croppedImage).subscribe((data) => {
         this.toastr.success('Başarıyla kaydedildi.', '', {
           timeOut: 3000,
           positionClass: 'toast-top-full-width'
@@ -84,7 +88,7 @@ export class ProductDetailComponent implements OnInit {
 
   onSave() {
     this.isLoading = true;
-    this.service.updateProduct(this.proModel, this.selectedFile).subscribe((data) => {
+    this.service.updateProduct(this.proModel, this.croppedImage).subscribe((data) => {
         this.toastr.success('Başarıyla kaydedildi.', '', {
           timeOut: 3000,
           positionClass: 'toast-top-full-width'
@@ -102,4 +106,11 @@ export class ProductDetailComponent implements OnInit {
     );
   }
 
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+    this.imageSize = event.width + ' ' + 'x' + ' ' + event.height;
+  }
 }

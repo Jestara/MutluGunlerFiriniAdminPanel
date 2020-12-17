@@ -16,6 +16,7 @@
           <div class="input-group">
             <input type="file"  class="file-upload-browse btn btn-gradient-primary" name="file" [(ngModel)]="catModel.file" (change)="onFileChanged($event)" #fileInput>
           </div>
+          <span class="bg-warning">Önerilen boyut: 1110x200px</span>
         </div>
         <div class="form-group" *ngIf="catModel.imageUrl">
           <img src="https://{{catModel.imageUrl}}">

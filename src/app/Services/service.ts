@@ -98,11 +98,11 @@ export class Service {
     return this.http.post(this.BASE_URL + 'categories/add', fd, {headers});
   }
 
-  postProduct(product: any, file: File) {
+  postProduct(product: any, image: any) {
     const fd = new FormData();
-    fd.append('file', file);
     fd.append('name', product.name);
     fd.append('description', product.description);
+    fd.append('imageUrl', image);
     fd.append('price', product.price);
     fd.append('categoryId', product.categoryId);
     const headers = new HttpHeaders({
@@ -147,15 +147,14 @@ export class Service {
     return this.http.post(this.BASE_URL + 'categories/update', fd, {headers});
   }
 
-  updateProduct(product: any, file: File) {
+  updateProduct(product: any, image: any) {
     const fd = new FormData();
     fd.append('id', product.id);
     fd.append('name', product.name);
     fd.append('description', product.description);
-    fd.append('imageUrl', product.imageUrl);
+    fd.append('imageUrl', image);
     fd.append('price', product.price);
     fd.append('categoryId', product.categoryId);
-    fd.append('file', file);
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
