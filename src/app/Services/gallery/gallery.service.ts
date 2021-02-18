@@ -12,8 +12,8 @@ export class GalleryService {
   getGalleries() {
     return this.http.get(this.BASE_URL + 'galleries/getall', {
       headers: {
-        Accept: 'application/json',
-        Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+        'Accept': 'application/json',
+        'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
       }
     });
   }
