@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
   public uiBasicCollapsed = false;
   public samplePagesCollapsed = false;
-  pageIndexNumber: number = 1;
+  pageIndexNumber: number = 0;
   constructor(private route: Router) { }
 
   ngOnInit() {

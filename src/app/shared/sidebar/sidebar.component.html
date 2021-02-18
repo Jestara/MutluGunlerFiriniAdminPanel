@@ -14,7 +14,7 @@
     </li>-->
 
     <!-- [ngStyle]="{'color': style.colorVal ? style.colorVal : '#000', 'font-size' : style.fontSize ? style.fontSize : '16px' }" -->
-    <li class="nav-item mt-5" style="background-color: #A348FF" *ngIf="pageIndexNumber === 0">
+    <li class="nav-item mt-5" style="background-color: #A348FF;border-radius: 5px;" *ngIf="pageIndexNumber === 0">
       <a class="nav-link" (click)="navigate('/menu',0)" >
         <span class="menu-title" style="color: white;" >Menü</span>
         <i class="mdi mdi-book menu-icon" style="color: white;" ></i>
@@ -28,7 +28,7 @@
       </a>
     </li>
 
-    <li class="nav-item"   style="background-color: #A348FF" *ngIf="pageIndexNumber === 1" >
+    <li class="nav-item"   style="background-color: #A348FF;border-radius: 5px;" *ngIf="pageIndexNumber === 1" >
       <a class="nav-link"  (click)="navigate('/category',1)">
         <span class="menu-title" style="color: white;">Kategoriler</span>
         <i class="mdi mdi-view-week menu-icon" style="color: white;"></i>
@@ -42,7 +42,7 @@
         <i class="mdi mdi-view-week menu-icon"></i>
       </a>
     </li>
-    <li class="nav-item" style="background-color: #A348FF" *ngIf="pageIndexNumber === 2">
+    <li class="nav-item" style="background-color: #A348FF;border-radius: 5px;" *ngIf="pageIndexNumber === 2">
       <a class="nav-link"  (click)="navigate('/category',2)">
         <span class="menu-title" style="color: white;">Ürünler</span>
         <i class="mdi mdi-food menu-icon" style="color: white;"></i>
@@ -54,7 +54,7 @@
         <i class="mdi mdi-food menu-icon"></i>
       </a>
     </li>
-    <li class="nav-item"  style="background-color: #A348FF" *ngIf="pageIndexNumber === 3">
+    <li class="nav-item"  style="background-color: #A348FF;border-radius: 5px;" *ngIf="pageIndexNumber === 3">
       <a class="nav-link" (click)="navigate('/gallery',3)" >
         <span class="menu-title" style="color: white;">Galeri</span>
         <i class="mdi mdi-file-image menu-icon" style="color: white;"></i>
