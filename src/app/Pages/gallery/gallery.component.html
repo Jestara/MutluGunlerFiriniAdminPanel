@@ -1,0 +1,31 @@
+<div class="page-header">
+  <!-- <p class="page-title h1 text-primary" style="font-size: 30px;">
+    Galeri
+  </p> -->
+</div>
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped text-center">
+            <app-spinner *ngIf="isLoading"></app-spinner>
+
+            <tbody>
+            <tr *ngFor="let e of gallery">
+                <img style="height: 200px;width: 200px;border-radius: 75px;margin: 5%;" src="https://{{e.imageUrl}}">
+
+              <td>
+                <button class="btn btn-info" (click)="added(e)"><i class="mdi mdi-pencil" ></i></button>
+                <button class="btn btn-danger" (click)="delete(e)"><i class="mdi mdi-delete"></i></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn btn-primary mt-2" routerLink="/gallerydetail"> Ekle</button>
+      </div>
+    </div>
+  </div>
+
+</div>

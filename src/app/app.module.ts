@@ -30,6 +30,8 @@ import {ImageCropperModule} from 'ngx-image-cropper';
 import { DialogComponent } from './Dialogs/dialog/dialog.component';
 import {ToastrModule} from "ngx-toastr";
 import {MatSortModule} from "@angular/material/sort";
+import { GalleryComponent } from './Pages/gallery/gallery.component';
+import { GalleryDetailComponent } from './Pages/gallery-detail/gallery-detail.component';
 
 
 
@@ -52,6 +54,8 @@ import {MatSortModule} from "@angular/material/sort";
     MenuComponent,
     MenuDetailComponent,
     DialogComponent,
+    GalleryComponent,
+    GalleryDetailComponent,
   ],
     imports: [
         BrowserModule,

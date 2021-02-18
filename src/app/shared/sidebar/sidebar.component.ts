@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
   public uiBasicCollapsed = false;
   public samplePagesCollapsed = false;
-  
-  constructor() { }
+  pageIndexNumber: number = 1;
+  constructor(private route: Router) { }
 
   ngOnInit() {
     const body = document.querySelector('body');
@@ -28,5 +29,13 @@ export class SidebarComponent implements OnInit {
       });
     });
   }
+
+
+    navigate(url: string, pageIndexNumber: number) {
+      this.pageIndexNumber = pageIndexNumber;
+      this.route.navigateByUrl(url);
+
+
+    }
 
 }
