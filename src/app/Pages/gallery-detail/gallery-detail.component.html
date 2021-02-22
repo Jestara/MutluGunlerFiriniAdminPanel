@@ -18,7 +18,9 @@
           <image-cropper
             [imageChangedEvent]="imageChangedEvent"
             [maintainAspectRatio]="false"
-            format="png"
+            format="jpeg"
+            [resizeToWidth]=800
+            [resizeToHeight]=800
 
             (imageCropped)="imageCropped($event)"
           ></image-cropper>

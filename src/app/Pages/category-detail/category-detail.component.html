@@ -11,16 +11,30 @@
           <label>Kategori Adı</label>
           <input type="text" class="form-control"  name="name" placeholder="Kategori Adı" [(ngModel)]="catModel.name" >
         </div>
-        <div class="form-group">
+<!--        <div class="form-group">
           <label>Resim Yükle</label>
           <div class="input-group">
             <input type="file"  class="file-upload-browse btn btn-gradient-primary" name="file" [(ngModel)]="catModel.file" (change)="onFileChanged($event)" #fileInput>
           </div>
           <span class="bg-warning">Önerilen boyut: 1110x200px</span>
-        </div>
+        </div>-->
         <div class="form-group" *ngIf="catModel.imageUrl">
           <img src="https://{{catModel.imageUrl}}">
         </div>
+
+        <div class="from-group">
+          <label>Kategori Fotoğrafı: </label>
+          <input type="file" (change)="fileChangeEvent($event)" />
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="false"
+            [resizeToWidth]=1200
+            [resizeToHeight]=600
+            format="jpeg"
+            (imageCropped)="imageCropped($event)"
+          ></image-cropper>
+        </div>
+
         <div class="form-group">
           <label for="exampleTextarea1">Açıklama</label>
           <textarea class="form-control" id="exampleTextarea1" rows="4" name="description" [(ngModel)]="catModel.description"></textarea>

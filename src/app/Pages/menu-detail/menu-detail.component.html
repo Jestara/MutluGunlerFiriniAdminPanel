@@ -11,17 +11,29 @@
           <label>Menü Adı</label>
           <input type="text" class="form-control"  name="name" placeholder="Menü Adı" [(ngModel)]="menuModel.name" >
         </div>
-        <div class="form-group">
+<!--        <div class="form-group">
           <label>Resim Yükle</label>
           <div class="input-group">
             <input type="file"  class="file-upload-browse btn btn-gradient-primary" name="file" [(ngModel)]="menuModel.file" (change)="onFileChanged($event)" #fileInput>
           </div>
           <span class="bg-warning">Önerilen boyut: 540x200px</span>
-        </div>
+        </div>-->
         <div class="form-group" *ngIf="menuModel.imageUrl">
           <img src="https://{{menuModel.imageUrl}}">
         </div>
 
+        <div class="from-group">
+          <label>Menü Fotoğrafı: </label>
+          <input type="file" (change)="fileChangeEvent($event)" />
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="false"
+            [resizeToWidth]=800
+            [resizeToHeight]=600
+            format="jpeg"
+            (imageCropped)="imageCropped($event)"
+          ></image-cropper>
+        </div>
 
         <div class="form-group">
           <label for="exampleTextarea1">Açıklama</label>

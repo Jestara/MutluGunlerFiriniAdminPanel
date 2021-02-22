@@ -37,9 +37,10 @@
               <td>
                 <p class="overflow">{{m.description}}</p>
               </td>
-              <td>
-                <button class="btn btn-info" (click)="edit(m)"><i class="mdi mdi-pencil" ></i></button>
-                <button class="btn btn-danger" (click)="delete(m)"><i class="mdi mdi-delete"></i></button>
+              <td >
+                <button class="btn btn-info" style="border-radius: 5px;margin: 1%;"  (click)="edit(m)"><i class="mdi mdi-pencil" ></i></button>
+
+                <button class="btn btn-danger" style="border-radius: 5px;margin: 1%;" (click)="delete(m)"><i class="mdi mdi-delete"></i></button>
               </td>
             </tr>
             </tbody>

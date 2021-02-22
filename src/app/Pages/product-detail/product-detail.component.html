@@ -31,7 +31,7 @@
           </div>
         </div>-->
         <div class="form-group" *ngIf="proModel.imageUrl">
-          <img src="{{proModel.imageUrl}}" alt="{{proModel.description}}">
+          <img src="https://{{proModel.imageUrl}}">
         </div>
 
         <div class="from-group">
@@ -40,15 +40,15 @@
           <image-cropper
             [imageChangedEvent]="imageChangedEvent"
             [maintainAspectRatio]="true"
-            [aspectRatio]="1024 / 1024"
+            [aspectRatio]="2 / 2"
             format="png"
             (imageCropped)="imageCropped($event)"
           ></image-cropper>
         </div>
 
-        <div class="form-group">
+<!--        <div class="form-group">
           <img [src]="croppedImage" />
-        </div>
+        </div>-->
 
         <div class="form-group">
           <label >Ürün Açıklaması</label>

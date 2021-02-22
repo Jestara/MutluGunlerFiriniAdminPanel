@@ -10,8 +10,8 @@ import {MProduct} from '../Models/MProduct';
   providedIn: 'root'
 })
 export class Service {
-  BASE_URL = 'https://service.mutlugunlerfirini.com.tr/api/';
-  // BASE_URL = 'https://localhost:44352/api/';
+   BASE_URL = 'https://service.mutlugunlerfirini.com.tr/api/';
+  //  BASE_URL = 'http://localhost/MutluGunlerFirini.WebAPI/api/';
 
   constructor(private http: HttpClient) {
   }
@@ -102,9 +102,9 @@ export class Service {
     const fd = new FormData();
     fd.append('name', product.name);
     fd.append('description', product.description);
-    fd.append('imageUrl', image);
     fd.append('price', product.price);
     fd.append('categoryId', product.categoryId);
+    fd.append('file', image);
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
@@ -152,9 +152,10 @@ export class Service {
     fd.append('id', product.id);
     fd.append('name', product.name);
     fd.append('description', product.description);
-    fd.append('imageUrl', image);
+    fd.append('imageUrl', product.imageUrl);
     fd.append('price', product.price);
     fd.append('categoryId', product.categoryId);
+    fd.append('file', image);
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });

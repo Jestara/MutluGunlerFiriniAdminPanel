@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Service} from "../../Services/service";
 import {ToastrService} from "ngx-toastr";
-import {ImageCroppedEvent} from "ngx-image-cropper";
+import {base64ToFile, ImageCroppedEvent} from "ngx-image-cropper";
 
 @Component({
   selector: 'app-product-detail',
@@ -16,9 +16,10 @@ export class ProductDetailComponent implements OnInit {
     id: null,
     name: '',
     description: '',
-    imageUrl: '',
+    imageUrl: null,
     price: null,
-    categoryId: null
+    categoryId: null,
+    file: null
   };
   categories: any;
   button: boolean;
@@ -26,7 +27,9 @@ export class ProductDetailComponent implements OnInit {
 
   imageChangedEvent: any = '';
   croppedImage: any = '';
-  imageSize: any;
+
+  fileToReturn: any;
+
 
   constructor(private route: ActivatedRoute,
               private service: Service,
@@ -48,8 +51,8 @@ export class ProductDetailComponent implements OnInit {
               description: this.product.description,
               imageUrl: this.product.imageUrl,
               price: this.product.price,
-              categoryId: this.product.categoryId
-              // file: this.croppedImage
+              categoryId: this.product.categoryId,
+              file: this.fileToReturn
             };
           }
         });
@@ -68,17 +71,16 @@ export class ProductDetailComponent implements OnInit {
 
   onSubmit() {
     this.isLoading = true;
-    this.service.postProduct(this.proModel, this.croppedImage).subscribe((data) => {
+    this.service.postProduct(this.proModel, this.fileToReturn).subscribe((data) => {
         this.toastr.success('Başarıyla kaydedildi.', '', {
           timeOut: 3000,
           positionClass: 'toast-top-full-width'
         });
-      this.isLoading = false;
+        this.isLoading = false;
         setTimeout(() => {
           this.router.navigateByUrl('/product');
-        }, 3000);
-      },error =>
-      {
+        }, 1000);
+      }, error => {
         this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
           positionClass: 'toast-top-full-width'
         });
@@ -88,17 +90,16 @@ export class ProductDetailComponent implements OnInit {
 
   onSave() {
     this.isLoading = true;
-    this.service.updateProduct(this.proModel, this.croppedImage).subscribe((data) => {
+    this.service.updateProduct(this.proModel, this.fileToReturn).subscribe((data) => {
         this.toastr.success('Başarıyla kaydedildi.', '', {
           timeOut: 3000,
           positionClass: 'toast-top-full-width'
         });
-      this.isLoading = false;
+        this.isLoading = false;
         setTimeout(() => {
           this.router.navigateByUrl('/product');
-        }, 3000);
-      },error =>
-      {
+        }, 1000);
+      }, error => {
         this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
           positionClass: 'toast-top-full-width'
         });
@@ -109,8 +110,27 @@ export class ProductDetailComponent implements OnInit {
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
   }
+
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
-    this.imageSize = event.width + ' ' + 'x' + ' ' + event.height;
+    this.fileToReturn = this.base64ToFile(
+      event.base64,
+      this.imageChangedEvent.target.files[0].name
+    )
+    console.log(this.fileToReturn);
+    return this.fileToReturn;
+  }
+
+  base64ToFile(data, filename) {
+    // Gelen base64 kodunu file dosyasına dönüştürdük.
+    const arr = data.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename,  {type: 'image/png'});
   }
 }

@@ -28,6 +28,8 @@ export class MenuDetailComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
 
+  fileToReturn: any;
+
   constructor(private route: ActivatedRoute,
               private service: Service,
               private formBuilder: FormBuilder,
@@ -48,7 +50,7 @@ export class MenuDetailComponent implements OnInit {
               name: this.menu.name,
               description: this.menu.description,
               imageUrl: this.menu.imageUrl,
-              file: this.selectedFile
+              file: this.fileToReturn
             };
           }
         });
@@ -61,7 +63,7 @@ export class MenuDetailComponent implements OnInit {
 
   onSubmit() {
     this.isLoading = true;
-    this.service.postMenu(this.menuModel, this.selectedFile).subscribe((data) => {
+    this.service.postMenu(this.menuModel, this.fileToReturn).subscribe((data) => {
         this.toastr.success('Başarıyla kaydedildi.', '', {
           timeOut: 3000,
           positionClass: 'toast-top-full-width'
@@ -69,7 +71,7 @@ export class MenuDetailComponent implements OnInit {
       this.isLoading = false;
         setTimeout(() => {
           this.router.navigateByUrl('/menu');
-        }, 3000);
+        }, 1000);
       }, error => {
         this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
           positionClass: 'toast-top-full-width'
@@ -80,7 +82,7 @@ export class MenuDetailComponent implements OnInit {
 
   onSave() {
     this.isLoading = true;
-    this.service.updateMenu(this.menuModel, this.selectedFile).subscribe((data) => {
+    this.service.updateMenu(this.menuModel, this.fileToReturn).subscribe((data) => {
         this.toastr.success('Başarıyla kaydedildi.', '', {
           timeOut: 3000,
           positionClass: 'toast-top-full-width'
@@ -88,7 +90,7 @@ export class MenuDetailComponent implements OnInit {
       this.isLoading = false;
         setTimeout(() => {
           this.router.navigateByUrl('/menu');
-        }, 3000);
+        }, 1000);
       }, error => {
         this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
           positionClass: 'toast-top-full-width'
@@ -99,6 +101,33 @@ export class MenuDetailComponent implements OnInit {
 
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+    this.fileToReturn = this.base64ToFile(
+      event.base64,
+      this.imageChangedEvent.target.files[0].name,
+    )
+    console.log(this.fileToReturn);
+    return this.fileToReturn;
+  }
+
+  base64ToFile(data, filename) {
+    // Gelen base64 kodunu file dosyasına dönüştürdük.
+    const arr = data.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type: mime});
   }
 
 }
