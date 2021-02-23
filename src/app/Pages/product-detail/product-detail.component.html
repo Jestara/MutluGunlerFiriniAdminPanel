@@ -39,9 +39,10 @@
           <input type="file" (change)="fileChangeEvent($event)" />
           <image-cropper
             [imageChangedEvent]="imageChangedEvent"
-            [maintainAspectRatio]="true"
-            [aspectRatio]="2 / 2"
-            format="png"
+            [maintainAspectRatio]="false"
+            format="jpeg"
+            [resizeToWidth]=300
+            [resizeToHeight]=300
             (imageCropped)="imageCropped($event)"
           ></image-cropper>
         </div>

@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GalleryService {
-  //  BASE_URL = 'https://service.mutlugunlerfirini.com.tr/api/';
-    BASE_URL = 'http://localhost/MutluGunlerFirini.WebAPI/api/';
+   BASE_URL = 'https://service.mutlugunlerfirini.com.tr/api/';
+    //BASE_URL = 'http://localhost/MutluGunlerFirini.WebAPI/api/';
   constructor(private http: HttpClient) { }
 
   getGalleries() {
