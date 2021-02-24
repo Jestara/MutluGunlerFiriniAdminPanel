@@ -13,7 +13,7 @@
             <thead>
             <tr>
               <th>
-                #
+                Önizleme
               </th>
               <th>
                 Ad
@@ -25,9 +25,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let c of category">
-              <td>
-                {{c.id}}
-              </td>
+
+                <img style="height: 150px;width: 400px;border-radius: 50px;margin: 5%;" src="https://{{c.imageUrl}}">
+
               <td>
                 {{c.name}}
               </td>

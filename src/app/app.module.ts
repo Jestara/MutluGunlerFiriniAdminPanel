@@ -32,6 +32,7 @@ import {ToastrModule} from "ngx-toastr";
 import {MatSortModule} from "@angular/material/sort";
 import { GalleryComponent } from './Pages/gallery/gallery.component';
 import { GalleryDetailComponent } from './Pages/gallery-detail/gallery-detail.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -58,6 +59,7 @@ import { GalleryDetailComponent } from './Pages/gallery-detail/gallery-detail.co
     GalleryDetailComponent,
   ],
     imports: [
+      MatTooltipModule,
         BrowserModule,
         AppRoutingModule,
         NgbModule,

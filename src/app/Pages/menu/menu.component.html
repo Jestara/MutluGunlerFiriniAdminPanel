@@ -15,7 +15,7 @@
 
             <tr>
               <th>
-                #
+                Önizleme
               </th>
               <th>
                 Ad
@@ -29,7 +29,7 @@
 
             <tr *ngFor="let m of menu">
               <td>
-                {{m.id}}
+                <img style="height: 150px;width: 200px;border-radius: 50px;margin: 5%;" src="https://{{m.imageUrl}}">
               </td>
               <td>
                 {{m.name}}

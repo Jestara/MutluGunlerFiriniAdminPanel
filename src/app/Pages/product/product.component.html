@@ -12,9 +12,9 @@
             <app-spinner *ngIf="isLoading"></app-spinner>
             <thead>
             <tr>
-              <th>
-                #
-              </th>
+                <th>
+                  Önizleme
+                </th>
               <th>
                 Ad
               </th>
@@ -29,7 +29,7 @@
             <tbody>
             <tr *ngFor="let p of product">
               <td>
-                {{p.id}}
+                <img style="height: 200px;width: 200px;border-radius: 75px;margin: 5%;" src="https://{{p.imageUrl}}">
               </td>
               <td>
                 {{p.name}}
@@ -38,7 +38,7 @@
                 {{p.price}}
               </td>
               <td>
-                <p class="overflow">{{p.description}}</p>
+                <p class="overflow" matTooltip="{{p.description}}"  >{{p.description}}</p>
               </td>
 
               <td>
