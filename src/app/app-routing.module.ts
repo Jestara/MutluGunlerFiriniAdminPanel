@@ -1,3 +1,5 @@
+import { PostDetailComponent } from './Pages/post-detail/post-detail.component';
+import { PostComponent } from './Pages/post/post.component';
 import { GalleryComponent } from './Pages/gallery/gallery.component';
 import { GalleryDetailComponent } from './Pages/gallery-detail/gallery-detail.component';
 import {NgModule} from '@angular/core';
@@ -35,6 +37,9 @@ const routes: Routes = [
   { path: 'gallerydetail', component: GalleryDetailComponent },
   { path: 'gallerydetail/:id', component: GalleryDetailComponent },
   { path: 'gallery', component: GalleryComponent },
+  { path: 'posts', component: PostComponent },
+  { path: 'post-detail', component: PostDetailComponent },
+  { path: 'post-detail/:id', component: PostDetailComponent },
 
   /*  { path: 'basic-ui', loadChildren: () => import('./basic-ui/basic-ui.module').then(m => m.BasicUiModule) },
     { path: 'charts', loadChildren: () => import('./charts/charts.module').then(m => m.ChartsDemoModule) },

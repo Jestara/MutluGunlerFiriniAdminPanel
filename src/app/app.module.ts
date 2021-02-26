@@ -33,6 +33,10 @@ import {MatSortModule} from "@angular/material/sort";
 import { GalleryComponent } from './Pages/gallery/gallery.component';
 import { GalleryDetailComponent } from './Pages/gallery-detail/gallery-detail.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { PostComponent } from './Pages/post/post.component';
+import { PostDetailComponent } from './Pages/post-detail/post-detail.component';
+import {MatSelectModule} from '@angular/material/select';
+
 
 
 
@@ -57,6 +61,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     DialogComponent,
     GalleryComponent,
     GalleryDetailComponent,
+    PostComponent,
+    PostDetailComponent,
   ],
     imports: [
       MatTooltipModule,
@@ -71,7 +77,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
         MaterialModule,
         ImageCropperModule,
         ToastrModule.forRoot(),
-        MatSortModule
+        MatSortModule,
+        MatSelectModule
     ],
   providers: [ThemeService, Service],
   bootstrap: [AppComponent]

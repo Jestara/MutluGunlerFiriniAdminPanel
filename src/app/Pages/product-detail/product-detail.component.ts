@@ -32,9 +32,10 @@ export class ProductDetailComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute,
+              private toastr: ToastrService,
               private service: Service,
               private router: Router,
-              private toastr: ToastrService) {
+              ) {
   }
 
   ngOnInit(): void {

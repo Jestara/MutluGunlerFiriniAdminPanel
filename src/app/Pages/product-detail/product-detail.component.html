@@ -2,9 +2,7 @@
   <div class="card">
     <div class="card-body">
       <h4 class="card-title">Ürün Bilgileri</h4>
-      <p class="card-description">
-        Ürün Bilgileri
-      </p>
+
       <form class="forms-sample">
         <app-spinner *ngIf="isLoading"></app-spinner>
         <div class="form-group">
@@ -24,12 +22,6 @@
             <option *ngFor="let c of categories" value="{{c.id}}">{{c.name}}</option>
           </select>
         </div>
-<!--        <div class="form-group">
-          <label>Resim Yükle</label>
-          <div class="input-group">
-            <input type="file"  class="file-upload-browse btn btn-gradient-primary" name="file" [(ngModel)]="proModel.file" (change)="onFileChanged($event)" #fileInput>
-          </div>
-        </div>-->
         <div class="form-group" *ngIf="proModel.imageUrl">
           <img src="https://{{proModel.imageUrl}}">
         </div>

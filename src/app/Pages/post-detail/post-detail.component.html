@@ -1,0 +1,74 @@
+<div class="col-12 grid-margin stretch-card">
+  <div class="card" >
+    <div class="card-body" *ngIf="post">
+      <h4 class="card-title">Post Bilgileri</h4>
+      <form class="forms-sample">
+        <app-spinner *ngIf="isLoading"></app-spinner>
+        <div class="form-group">
+          <input type="hidden" *ngIf="post.id" class="form-control" name="id" [(ngModel)]="post.id">
+        </div>
+        <br>
+        <br>
+
+        <div class="form-group" *ngIf="!post.videoUrl && !post.imageUrl">
+          <mat-form-field>
+            <mat-label>Post tipini seçiniz</mat-label>
+           <mat-select >
+
+                    <mat-option  [value]="true" (click)="selectPostType(true)" style="font-weight: bold">
+                      Resim
+                    </mat-option>
+                    <mat-option  [value]="true" (click)="selectPostType(false)" style="font-weight: bold">
+                     Video
+                   </mat-option>
+
+                  </mat-select>
+                 </mat-form-field>
+         </div>
+        <div class="form-group" *ngIf="isPhoto == false" >
+          <label  >Video Url'i</label>
+          <input type="text" class="form-control" name="name" placeholder="Video Url'i" [(ngModel)]="post.videoUrl">
+          <div    class="post-thumbnail" style="margin-top: 2%;" *ngIf="post.videoUrl">
+            <iframe style="border-radius: 15px;" class="videoStyle" [src]="changeVideoUrl(post)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+
+        </div>
+
+
+
+        <div class="form-group" *ngIf="post.imageUrl" style="margin: 2%;">
+          <img src="https://{{post.imageUrl}}" style="width: 100%;height: 100%;">
+        </div>
+
+        <div class="from-group" *ngIf="isPhoto">
+          <label>Post Fotoğrafı: </label>
+          <input type="file" (change)="fileChangeEvent($event)" />
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="false"
+            format="jpeg"
+            [resizeToWidth]=300
+            [resizeToHeight]=300
+            (imageCropped)="imageCropped($event)"
+          ></image-cropper>
+        </div>
+
+        <!-- <div class="form-groud" *ngIf="isPhoto == false">
+
+          <label  >Video Url'i</label>
+          <input type="text" class="form-control" name="name" placeholder="Resim Url'i" [(ngModel)]="post.imageUrl">
+
+          <br>
+          <br>
+        </div> -->
+        <div class="form-group">
+          <label >Açıklama</label>
+          <textarea class="form-control" name="description" rows="4" [(ngModel)]="post.description"></textarea>
+        </div>
+        <button *ngIf="button === false" type="submit" class="btn btn-gradient-primary mr-2" (click)="onSubmit()">Kaydet</button>
+        <button *ngIf="button === true" type="submit" class="btn btn-gradient-primary mr-2" (click)="onSave()">Güncelle</button>
+        <button class="btn btn-light" routerLink="/posts">İptal</button>
+      </form>
+    </div>
+  </div>
+</div>
