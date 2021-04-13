@@ -1,0 +1,63 @@
+
+
+<div class="page-header">
+  <!-- <h3 class="page-title">
+    Ürünler
+  </h3> -->
+</div>
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <button class="btn btn-primary mt-2" routerLink="/mutlutv-detail"> Ekle</button>
+        <div class="table-responsive">
+          <table class="table table-striped text-center">
+            <app-spinner *ngIf="isLoading"></app-spinner>
+            <thead>
+            <tr>
+                <th>
+                  Önizleme
+                </th>
+
+                <th>
+                Açıklama
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let mutluTV of mutluTvs">
+              <td>
+                <div *ngIf="mutluTV.videoUrl && mutluTV.videoUrl != 'null'"    class="post-thumbnail">
+                  <iframe style="border-radius: 15px;" class="videoStyle" [src]="changeVideoUrl(mutluTV)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </td>
+
+
+
+
+
+              <td>
+                <p class="overflow" matTooltip="{{mutluTV.description}}"  >{{mutluTV.description}}</p>
+              </td>
+
+
+
+
+
+              <td>
+                <button class="btn btn-info"  style="border-radius: 5px;margin: 1%;" (click)="added(mutluTV)"><i class="mdi mdi-pencil" ></i></button>
+                <button class="btn btn-danger" style="border-radius: 5px;margin: 1%;"  (click)="delete(mutluTV)"><i class="mdi mdi-delete"></i></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+

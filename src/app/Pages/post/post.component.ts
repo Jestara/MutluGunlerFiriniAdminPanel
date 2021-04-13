@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './../../Dialogs/dialog/dialog.component';
 import { Router } from '@angular/router';
@@ -18,7 +19,8 @@ export class PostComponent implements OnInit {
   constructor(private postsService: PostsService,
               private router: Router,
               public dialog: MatDialog,
-              private sanitizer: DomSanitizer
+              private sanitizer: DomSanitizer,
+              private toastr: ToastrService,
     ) { }
 
   ngOnInit(): void {
@@ -50,15 +52,52 @@ export class PostComponent implements OnInit {
   }
 
   delete(p) {
-    const dialogRef = this.dialog.open(DialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        this.postsService.deletePosts(p);
+    console.log('POST DELETE -------->')
+    this.postsService.deletePosts(p).subscribe((response) => {
+      this.toastr.success('İleti Başarıyla Silindi.', '', {
+        timeOut: 3000,
+        positionClass: 'toast-top-full-width'
+      });
+      this.isLoading = false;
+      setTimeout(() => {
+        this.router.navigateByUrl('/posts');
+      }, 1000);
+      console.log(response);
+    }, error => {
+      if(error['status'] === 200){
+        this.toastr.success('İleti başarıyla silindi.', '', {
+          timeOut: 3000,
+          positionClass: 'toast-top-full-width'
+        });
+        this.isLoading = false;
         setTimeout(() => {
-          location.reload();
-        }, 2000);
+          // this.router.navigateByUrl('/posts');
+      this.reloadCurrentRoute();
+        }, 1000);
+
+      }else {
+        this.toastr.warning('Silme işleminde bir hata oluştu !', '', {
+          positionClass: 'toast-top-full-width'
+        });
       }
-    });
+    })
+
+    // const dialogRef = this.dialog.open(DialogComponent);
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result === true) {
+    //     this.postsService.deletePosts(p);
+    //     setTimeout(() => {
+    //       location.reload();
+    //     }, 2000);
+    //   }
+    // });
   }
+  reloadCurrentRoute() {
+    console.log('reloadCurrentRoute WORKED');
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([currentUrl]);
+    });
+}
 
 }

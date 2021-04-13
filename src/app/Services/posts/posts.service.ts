@@ -31,12 +31,15 @@ export class PostsService {
 
   postPosts(post: any, image: any) {
 
+
     const fd = new FormData();
-    fd.append('createdDate', post.createdDate);
     fd.append('description', post.description);
     fd.append('imageUrl', post.imageUrl);
     fd.append('videoUrl', post.videoUrl);
+    fd.append('title', post.title);
     fd.append('file', image);
+    console.log('SERVİCE POST TİTLE -->');
+    console.log(fd['title']);
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
@@ -46,8 +49,8 @@ export class PostsService {
   updatePost(post: any, image: any) {
     const fd = new FormData();
     fd.append('id', post.id);
-    fd.append('createdDate', post.createdDate);
     fd.append('description', post.description);
+    fd.append('title', post.title);
     fd.append('imageUrl', post.imageUrl);
     fd.append('videoUrl', post.videoUrl);
     fd.append('file', image);
@@ -57,11 +60,18 @@ export class PostsService {
     return this.http.post(this.BASE_URL + 'posts/update', fd, {headers});
   }
 
-  deletePosts(posts: any) {
+  deletePosts(posts: Posts) {
+
+    var postObject = {
+      'id': posts.id,
+      'description': posts.description,
+      'imageUrl' : posts.imageUrl,
+      'videoUrl' : posts.videoUrl
+    }
+
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
+      Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980')
     });
-    return this.http.post(this.BASE_URL + 'posts/delete', posts, {headers});
+    return this.http.post(this.BASE_URL + 'posts/delete', postObject, {headers});
   }
 }

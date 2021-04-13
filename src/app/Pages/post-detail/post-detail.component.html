@@ -36,7 +36,7 @@
 
 
 
-        <div class="form-group" *ngIf="post.imageUrl" style="margin: 2%;">
+        <div class="form-group" *ngIf="post.imageUrl && post.imageUrl != 'null'" style="margin: 2%;">
           <img src="https://{{post.imageUrl}}" style="width: 100%;height: 100%;">
         </div>
 
@@ -61,7 +61,11 @@
           <br>
           <br>
         </div> -->
-        <div class="form-group">
+        <div class="form-group" *ngIf="isSelected">
+          <label >Başlık</label>
+          <textarea class="form-control" name="title" rows="1" [(ngModel)]="post.title"></textarea>
+        </div>
+        <div class="form-group" *ngIf="isSelected">
           <label >Açıklama</label>
           <textarea class="form-control" name="description" rows="4" [(ngModel)]="post.description"></textarea>
         </div>

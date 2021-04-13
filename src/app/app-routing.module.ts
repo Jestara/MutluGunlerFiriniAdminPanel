@@ -1,3 +1,4 @@
+import { MutlutvComponent } from './Pages/mutlutv/mutlutv/mutlutv.component';
 import { PostDetailComponent } from './Pages/post-detail/post-detail.component';
 import { PostComponent } from './Pages/post/post.component';
 import { GalleryComponent } from './Pages/gallery/gallery.component';
@@ -14,6 +15,7 @@ import {BasicElementsComponent} from './forms/basic-elements/basic-elements.comp
 import {MenuComponent} from './Pages/menu/menu.component';
 import {MenuDetailComponent} from './Pages/menu-detail/menu-detail.component';
 import {LoginComponent} from './user-pages/login/login.component';
+import { MutlutvDetailComponent } from './Pages/mutlutv-detail/mutlutv-detail.component';
 
 
 
@@ -37,9 +39,13 @@ const routes: Routes = [
   { path: 'gallerydetail', component: GalleryDetailComponent },
   { path: 'gallerydetail/:id', component: GalleryDetailComponent },
   { path: 'gallery', component: GalleryComponent },
-  { path: 'posts', component: PostComponent },
+  { path: 'posts', component: PostComponent , runGuardsAndResolvers: 'always',},
   { path: 'post-detail', component: PostDetailComponent },
   { path: 'post-detail/:id', component: PostDetailComponent },
+  { path: 'mutlutv', component: MutlutvComponent , runGuardsAndResolvers: 'always',},
+  { path: 'mutlutv-detail', component: MutlutvDetailComponent },
+  { path: 'mutlutv-detail/:id', component: MutlutvDetailComponent },
+
 
   /*  { path: 'basic-ui', loadChildren: () => import('./basic-ui/basic-ui.module').then(m => m.BasicUiModule) },
     { path: 'charts', loadChildren: () => import('./charts/charts.module').then(m => m.ChartsDemoModule) },
@@ -50,10 +56,12 @@ const routes: Routes = [
     { path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule) },
     { path: 'user-pages', loadChildren: () => import('./user-pages/user-pages.module').then(m => m.UserPagesModule) },
     { path: 'error-pages', loadChildren: () => import('./error-pages/error-pages.module').then(m => m.ErrorPagesModule) },*/
-];
+]
+
+;
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload',})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

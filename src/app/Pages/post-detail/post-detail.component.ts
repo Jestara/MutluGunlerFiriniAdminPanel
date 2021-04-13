@@ -21,7 +21,7 @@ export class PostDetailComponent implements OnInit {
   post: Posts;
   fileToReturn: any = null;
   isPhoto: boolean;
-
+  isSelected: boolean;
   constructor(private route: ActivatedRoute,
     private toastr: ToastrService,
     private postsService: PostsService,
@@ -46,6 +46,7 @@ export class PostDetailComponent implements OnInit {
         this.button = true;
         this.postsService.getPostsById(id).then((response) => {
           this.post = response;
+          this.isSelected = true
             console.log(this.post);
             if(this.post.imageUrl){
               this.isPhoto = true;
@@ -58,10 +59,10 @@ export class PostDetailComponent implements OnInit {
         this.button = false;
        this.post = {
           id: null,
-          createdDate: null,
           imageUrl: null,
           videoUrl : null,
           description: null,
+          title: null
        };
       }
     })
@@ -73,8 +74,8 @@ export class PostDetailComponent implements OnInit {
    }
 
   onSubmit() {
-    // this.isLoading = true;
-    console.log(this.post);
+    this.isLoading = true;
+      console.log(this.post);
     console.log(this.fileToReturn);
     this.postsService.postPosts(this.post, this.fileToReturn).subscribe((data) => {
         this.toastr.success('Başarıyla kaydedildi.', '', {
@@ -86,15 +87,30 @@ export class PostDetailComponent implements OnInit {
           this.router.navigateByUrl('/posts');
         }, 1000);
       }, error => {
-        console.log(error);
-        this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
-          positionClass: 'toast-top-full-width'
-        });
+
+        console.log(error['status']);
+          if(error['status'] === 200){
+            this.toastr.success('Başarıyla kaydedildi.', '', {
+              timeOut: 3000,
+              positionClass: 'toast-top-full-width'
+            });
+            this.isLoading = false;
+            setTimeout(() => {
+              this.router.navigateByUrl('/posts');
+            }, 1000);
+
+          }else {
+            this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
+              positionClass: 'toast-top-full-width'
+            });
+          }
       }
     );
   }
 
   onSave() {
+    console.log('UPDATE POST -->');
+  console.log(this.post);
     this.isLoading = true;
     this.postsService.updatePost(this.post, this.fileToReturn).subscribe((data) => {
         this.toastr.success('Başarıyla kaydedildi.', '', {
@@ -106,20 +122,36 @@ export class PostDetailComponent implements OnInit {
           this.router.navigateByUrl('/posts');
         }, 1000);
       }, error => {
-        console.log(error);
-        this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
-          positionClass: 'toast-top-full-width'
-        });
+        if(error['status'] === 200){
+          this.toastr.success('Başarıyla kaydedildi.', '', {
+            timeOut: 3000,
+            positionClass: 'toast-top-full-width'
+          });
+          this.isLoading = false;
+          setTimeout(() => {
+            this.router.navigateByUrl('/posts');
+          }, 1000);
+
+        }else {
+          this.toastr.warning('Lütfen alanları doğru bir şekilde doldurunuz.', '', {
+            positionClass: 'toast-top-full-width'
+          });
+        }
       }
     );
   }
 
-  fileChangeEvent(event: any): void {
-    this.imageChangedEvent = event;
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
   }
 
   selectPostType(boolValue: boolean){
     this.isPhoto = boolValue;
+    this.isSelected = true;
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
   }
 
   imageCropped(event: ImageCroppedEvent) {

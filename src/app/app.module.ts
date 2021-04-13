@@ -36,6 +36,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { PostComponent } from './Pages/post/post.component';
 import { PostDetailComponent } from './Pages/post-detail/post-detail.component';
 import {MatSelectModule} from '@angular/material/select';
+import { MutlutvComponent } from './Pages/mutlutv/mutlutv/mutlutv.component';
+import { MutlutvDetailComponent } from './Pages/mutlutv-detail/mutlutv-detail.component';
 
 
 
@@ -63,6 +65,8 @@ import {MatSelectModule} from '@angular/material/select';
     GalleryDetailComponent,
     PostComponent,
     PostDetailComponent,
+    MutlutvComponent,
+    MutlutvDetailComponent,
   ],
     imports: [
       MatTooltipModule,
