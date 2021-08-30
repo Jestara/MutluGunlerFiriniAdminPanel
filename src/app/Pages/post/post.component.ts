@@ -36,7 +36,7 @@ export class PostComponent implements OnInit {
     } else {
       this.isLoading = true;
       this.postsService.getPosts().subscribe((data) => {
-        this.posts = data;
+        this.posts = data.sort((a,b) => b['id'] - a ['id']);;
         this.isLoading = false;
       });
     }

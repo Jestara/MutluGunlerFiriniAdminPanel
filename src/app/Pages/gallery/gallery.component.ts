@@ -1,3 +1,4 @@
+import { MGallery } from './../../Models/MGallery';
 import { GalleryService } from './../../Services/gallery/gallery.service';
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
@@ -33,8 +34,8 @@ export class GalleryComponent implements OnInit {
   }
 
       getGalleryPhotos(){
-        this.galleryService.getGalleries().subscribe((data)=>{
-          this.gallery = data;
+        this.galleryService.getGalleries().subscribe((data: MGallery[])=>{
+          this.gallery = data.sort((a,b) => b['id'] - a ['id']);
           this.isLoading = false;
         });
       }

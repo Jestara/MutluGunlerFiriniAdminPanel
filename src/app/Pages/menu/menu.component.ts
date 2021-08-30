@@ -1,3 +1,4 @@
+import { MMenu } from './../../Models/MMenu';
 import {Component, OnInit} from '@angular/core';
 import {Service} from '../../Services/service';
 import {Router} from '@angular/router';
@@ -27,8 +28,8 @@ export class MenuComponent implements OnInit {
       this.router.navigate(['user-pages/login']);
     } else {
       this.isLoading = true;
-      this.service.getMenus().subscribe((data) => {
-        this.menu = data;
+      this.service.getMenus().subscribe((data: MMenu[] ) => {
+        this.menu = data.sort((a,b) => b['id'] - a ['id']);;
         this.isLoading = false;
       });
     }

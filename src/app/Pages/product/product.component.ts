@@ -1,3 +1,4 @@
+import { MProduct } from './../../Models/MProduct';
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Service} from "../../Services/service";
@@ -25,8 +26,8 @@ export class ProductComponent implements OnInit {
       this.router.navigate(['user-pages/login']);
     } else {
       this.isLoading = true;
-      this.service.getProducts().subscribe((data) => {
-        this.product = data;
+      this.service.getProducts().subscribe((data: MProduct[]) => {
+        this.product = data.sort((a,b) => b['id'] - a ['id']);;
         this.isLoading = false;
       });
     }

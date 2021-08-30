@@ -1,3 +1,4 @@
+import { MCategory } from './../../Models/MCategory';
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Service} from "../../Services/service";
@@ -25,8 +26,8 @@ export class CategoryComponent implements OnInit {
       this.router.navigate(['user-pages/login']);
     } else {
       this.isLoading = true;
-      this.service.getCategories().subscribe((data) => {
-        this.category = data;
+      this.service.getCategories().subscribe((data : MCategory[]) => {
+        this.category = data.sort((a,b) => b['id'] - a ['id']);
         console.log(this.category)
         this.isLoading = false;
       });

@@ -34,8 +34,8 @@ export class MutlutvComponent implements OnInit {
       this.router.navigate(['user-pages/login']);
     } else {
       this.isLoading = true;
-      this.mutluTvService.getMutluTvs().subscribe((data) => {
-        this.mutluTvs= data;
+      this.mutluTvService.getMutluTvs().subscribe((data: MutluTV[]) => {
+        this.mutluTvs= data.sort((a,b) => b['id'] - a ['id']);;
         this.isLoading = false;
         console.log('MUTLU TVS-->');
         console.log(this.mutluTvs);

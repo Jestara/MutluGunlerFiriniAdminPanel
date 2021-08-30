@@ -22,7 +22,7 @@ export class Service {
       Authorization: 'Basic ' + btoa('celil@gmail.com' + ':' + '1980'),
       Accept: 'application/json'
     });
-    return this.http.get<MMenu>(this.BASE_URL + 'menus/getall', {headers});
+    return this.http.get<MMenu[]>(this.BASE_URL + 'menus/getall', {headers});
   }
   getMenuById(id) {
     const headers = new HttpHeaders({
